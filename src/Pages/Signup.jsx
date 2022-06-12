@@ -9,7 +9,7 @@ import profile_4 from "../Public/Image/frofile_4.png";
 import profile_5 from "../Public/Image/frofile_5.png";
 import profile_6 from "../Public/Image/frofile_6.png";
 import { actionCreators as userActions } from "../Redux/modules/users";
-import { idCheck, passwordCheck } from "../shared/LoginCheck";
+import { idCheck, passwordCheck } from "../Shared/LoginCheck";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const Signup = () => {

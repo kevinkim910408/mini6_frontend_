@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { setCookie, getCookie } from "../../shared/Cookie";
+import { setCookie, getCookie } from "../../Shared/Cookie";
 
 // 액션
 

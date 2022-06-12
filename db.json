@@ -1,10 +1,10 @@
 {
-  "posts": [
+  "signup": [
     {
-      "title": "as",
-      "category": "java",
-      "content": "asd",
-      "done": false,
+      "username": "kevinkim",
+      "password": "rlawnsgh11",
+      "passwordcheck": "rlawnsgh11",
+      "profilePic": "profile3",
       "id": 1
     }
   ]
