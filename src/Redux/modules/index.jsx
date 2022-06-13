@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import wordsReducer from './users';
+import userReducer from './users';
 import postReducer from './posts';
 
 const rootReducer = combineReducers({
-    wordsReducer,
+    userReducer,
     postReducer,
 })
 

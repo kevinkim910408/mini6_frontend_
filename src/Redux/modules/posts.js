@@ -1,4 +1,5 @@
 import api from '../../Shared/api'
+import { getCookie } from '../../Shared/Cookie'
 
 const LOAD_POST = 'post/LOAD_POST'
 const ADD_POST = 'post/ADD_POST'
@@ -30,12 +31,15 @@ const initialState = {
 }
 
 export const __loadPosts = () => async(dispatch, getState) => {
-    
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        // response - totalpage
-        const response = await api.get('/posts')
-        dispatch(loadPost(response.data));
+        const response = await api.get(`api/articles`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          })
+          dispatch(loadPost(response.data));
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -44,15 +48,20 @@ export const __loadPosts = () => async(dispatch, getState) => {
 }
 
 export const __addPost = (payload) => async (dispatch, getState) =>{
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const request = await api.post('/posts', {
+        const data = await api.post('api/article', {
             title: payload.title,
             category: payload.category,
             content: payload.content,
             done: payload.done,
-        });
-        dispatch(addPost(request.data))
+        },{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+          dispatch(addPost(data.data))
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -61,9 +70,16 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) =>{
+    console.log(payload, index)
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`/posts/${index}`, payload );
+        const request = await api.put(`api/articles/${index}`, payload ,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          } );
+        console.log(request)
         dispatch(updatePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
@@ -73,10 +89,17 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
 }
 
 export const __deletePost = (payload) => async (dispatch, getState) => {
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
         // response에서 id값을 받아야합니다.
-        await api.delete(`/posts/${payload}`);
+        const msg = await api.delete(`api/articles/${payload}`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+        //   console.log(msg.data)
+          alert(msg.data)
         dispatch(deletePost(payload));
     }catch(error){
         dispatch(getPostError(error))

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import { Route, Routes } from 'react-router-dom'
-import {useDispatch, useSelector } from "react-redux";
+import {useDispatch } from "react-redux";
 import { __loadPosts } from '../Redux/modules/posts';
 
 import flex from '../Components/Common/flex'
@@ -14,16 +14,10 @@ import Post from "../Pages/Post";
 import Update from "../Pages/Update";
 
 const Home = () => {
-  const {error, loading} = useSelector(state => state.postReducer)
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(__loadPosts())
   }, [dispatch])
-
-  if(loading) return <>LOADING......</>
-  if(error) return <>ERROR.........</>
-
   return (
     <>
       <Header />

@@ -21,7 +21,7 @@ const Content = (event) => {
   },[])
 
   const data = list.find((value)=>{
-    return value.id === +id
+    return value.articleId === +id
   })
 
   const onCategoryHandler = (event) =>{
@@ -33,7 +33,8 @@ const Content = (event) => {
       title:titleInputRef.current.value, 
       content:contentInputRef.current.value, 
       category: selectedValue,
-    }, data.id))
+      done: false,
+    }, data.articleId))
     navigate('/')
   }
 
@@ -55,11 +56,11 @@ const Content = (event) => {
         </StSelect>
       </StHeader>
       <StTitle>
-        <StInput maxLength={28} ref={titleInputRef} value={data.title}/>
+        <StInput maxLength={28} ref={titleInputRef} />
       </StTitle>
       <div style={{width:'80%', height:'2px', border:'1px solid #000', opacity:'0.1', marginTop:'1rem'}}/>
       <StBody>
-        <StTextarea ref={contentInputRef} value={data.content}/>
+        <StTextarea ref={contentInputRef}/>
       </StBody>
       <StFooter>
         <StButton onClick={onPostHandler}>

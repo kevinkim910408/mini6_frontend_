@@ -5,14 +5,15 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Common/flex'
 
-const Card = ({id, title, content, category}) => {
+const Card = ({id, title, content, category, username, time, done}) => {
     return (
         <StLink to={`/detail/${id}`}>
             <StCard>
                 <StContents>
                     <div>
+                        <p>{time}</p>
                         <StProfileImg src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg'/>
-                        <span style={{fontSize:'0.5rem', textAlign:'center'}}>ID: 0{id}</span>
+                        <span style={{fontSize:'0.5rem', textAlign:'center'}}>ID: {username}</span>
                     </div>
                     <StTextContents>
                         <span>{category}</span>

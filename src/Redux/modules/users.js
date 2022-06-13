@@ -17,6 +17,7 @@ const initialState = {
     userPw: "",
   },
   is_login: false,
+  token: "",
 };
 
 // 액션 생성 함수
@@ -44,15 +45,15 @@ const loginDB = (username, password) => {
         password,
       })
       .then((response) => {
-        console.log(response);
-        window.alert("로그인 성공");
 
-        console.log(response.config.data.split(":"));
+        window.alert("로그인 성공");
 
         dispatch(
           logIn({
             is_login: true,
+            token: response.headers.authorization,
           })
+
         );
         setCookie(
           "Authorization",

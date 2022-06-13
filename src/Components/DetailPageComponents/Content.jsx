@@ -11,8 +11,9 @@ const Content = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {list} = useSelector(state=> state.postReducer);
-  const {id} = useParams();
+  const {id} = useParams(); // 10
   const [done, setDone] = useState(false);
+ 
 
   const onDoneHandler = () =>{
       setDone(value => !value)
@@ -20,7 +21,7 @@ const Content = () => {
   } 
 
   const data = list.find((value)=>{
-    return value.id === +id
+    return value.articleId === +id
   })
   
   const generateIdName = () => {
@@ -32,7 +33,7 @@ const Content = () => {
   }
 
   const onUpdateHandler = () => {
-    navigate(`/update/${data.id}`)
+    navigate(`/update/${data.articleId}`)
   }
 
   const onDeleteHandler = (id) => {
