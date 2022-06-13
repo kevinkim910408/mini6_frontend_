@@ -66,6 +66,7 @@ const StButton = styled.button`
   border: none;
   &:hover{
     color: #fff;
+    background-color: var(--Button-blue);
   }
   &[disabled] {
     background: grey;

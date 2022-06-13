@@ -70,7 +70,6 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) =>{
-    console.log(payload, index)
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
@@ -79,7 +78,6 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
               'Authorization': `Bearer ${myToken}`,
             }
           } );
-        console.log(request)
         dispatch(updatePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
@@ -92,13 +90,11 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        // response에서 id값을 받아야합니다.
         const msg = await api.delete(`api/articles/${payload}`,{
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
           });
-        //   console.log(msg.data)
           alert(msg.data)
         dispatch(deletePost(payload));
     }catch(error){
@@ -112,7 +108,6 @@ export const __donePost = (payload, id) => async (dispatch, getState) =>{
     console.log(payload)
     dispatch(getPostRequest(true))
     try{
-        // id, true/false -> response: 
         const request = await api.put(`/posts/${Number(id)}`, payload );
         dispatch(donePost(request.data))
     }catch(error){
@@ -130,12 +125,13 @@ const postReducer = (state = initialState, {type, payload}) =>{
             return {...state, list: [...state.list, payload]}
         case UPDATE_POST:
             const newChangePost = state.list.map((value) => {
-                return value.id === Number(payload.id) ? payload : value;
+                console.log(value.articleId, payload.articleId)
+                return value.articleId === Number(payload.articleId) ? payload : value;
             });
             return { ...state, list: newChangePost };
         case DELETE_POST:
             const newDeletedPost = state.list.filter((value) => {
-                return value.id !== Number(payload);
+                return value.articleId !== Number(payload);
             });
             return { ...state, list: [...newDeletedPost] };
         case GET_POST_REQUEST:

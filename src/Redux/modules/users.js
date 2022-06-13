@@ -4,13 +4,11 @@ import axios from "axios";
 import { setCookie, getCookie } from "../../Shared/Cookie";
 
 // 액션
-
 const LOG_IN = "LOG_IN";
 const LOAD_TOKEN = "LOAD_TOKEN";
 const WITHDRAWAL = "WITHDRAWAL";
 
 // 초기값
-
 const initialState = {
   userInfo: {
     username: "",
@@ -46,8 +44,6 @@ const loginDB = (username, password) => {
       })
       .then((response) => {
 
-        window.alert("로그인 성공");
-
         dispatch(
           logIn({
             is_login: true,
@@ -60,6 +56,7 @@ const loginDB = (username, password) => {
           response.headers.authorization.split(" ")[1]
         );
         setCookie("username", username);
+        setCookie("profilepic", response.headers.profilepic)
       })
       .catch((error) => {
         window.alert("아이디 또는 비밀번호를 확인해주세요.");
@@ -93,7 +90,7 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
+        setCookie("is_login", true);
         draft.token = action.payload.user.token;
         draft.user = action.payload.user;
         draft.is_login = true;

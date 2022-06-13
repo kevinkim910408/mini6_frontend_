@@ -1,28 +1,25 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Common/flex'
 
 const Card = ({id, title, content, category, username, time, done}) => {
+    const yearMonth = time.split("-") // year, month
+    const day = yearMonth[2].split("T") // day
+    const timeVal = day[1].split(":") // hour, minute
     return (
         <StLink to={`/detail/${id}`}>
             <StCard>
                 <StContents>
-                    <div>
-                        <p>{time}</p>
+                    <StDiv>
                         <StProfileImg src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg'/>
-                        <span style={{fontSize:'0.5rem', textAlign:'center'}}>ID: {username}</span>
-                    </div>
+                        <span style={{fontSize:'0.8rem', textAlign:'center'}}>ID: {username}</span>
+                    </StDiv>
                     <StTextContents>
-                        <span>{category}</span>
+                        <span style={{fontSize:'1.3rem', fontWeight:'700'}}>{category}</span> <span>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분 </span>
                         <StDivBos>{title}</StDivBos>
                         <StDivBos>{content}</StDivBos>
                     </StTextContents>
-                    <StAdditionalContents>
-                        <FontAwesomeIcon className='icon' icon={faCircleCheck}/>
-                    </StAdditionalContents>
                 </StContents>
 
             </StCard>
@@ -38,6 +35,7 @@ const StCard = styled.div`
     height: calc((100vh - 110px) / 5);
     padding: 1rem;
     cursor: pointer;
+    
     &:hover{
         background-color: #eff1f5;
     }
@@ -64,28 +62,12 @@ const StTextContents = styled.div`
 `;
 
 const StProfileImg = styled.img`
-    width: 100%;
+    width: 100px;
     border-radius: 100%;
     @media (max-width: 1550px) {
         display:none;
     }
 `;
-
-const StAdditionalContents = styled.div`
-    ${flex({direction:'column', align:'center', justify:'space-evenly'})}
-    width: 20%;
-    height: 100%;
-    & > button{
-        background-color: transparent;
-        font-size: 2rem;
-        border: none;
-        &:hover{
-            opacity: 0.5;
-        }
-    }
-    
-`;
-
 const StLink = styled(Link)`
     text-decoration: none;
     color: var(--black);
@@ -96,4 +78,9 @@ const StDivBos = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+`;
+
+const StDiv = styled.div`
+    ${flex({direction:'column'})}
+    width: 20%;
 `;

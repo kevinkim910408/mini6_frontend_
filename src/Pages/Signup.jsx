@@ -1,25 +1,35 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import logo from "../Public/Image/logo.png";
-import profile_1 from "../Public/Image/profile_1.png";
-import profile_2 from "../Public/Image/profile_2.png";
-import profile_3 from "../Public/Image/profile_3.png";
-import profile_4 from "../Public/Image/profile_4.png";
-import profile_5 from "../Public/Image/profile_5.png";
-import profile_6 from "../Public/Image/profile_6.png";
+import profile_1 from "../Public/Image/profile_profile1.png";
+import profile_2 from "../Public/Image/profile_profile2.png";
+import profile_3 from "../Public/Image/profile_profile3.png";
+import profile_4 from "../Public/Image/profile_profile4.png";
+import profile_5 from "../Public/Image/profile_profile5.png";
+import profile_6 from "../Public/Image/profile_profile6.png";
 import { actionCreators as userActions } from "../Redux/modules/users";
 import { idCheck, passwordCheck } from "../Shared/LoginCheck";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import flex from '../Components/Common/flex'
+import PasswordStrengthMeter from "../Components/PasswordStrength/PasswordStrengthMeter";
+
 const Signup = () => {
   const [username, setName] = useState();
   const [password, setPw] = useState();
   const [passwordcheck, setPwCheck] = useState();
   const [profilePic, setProfile] = useState();
   const checkref = useRef();
+  const focusRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    focusRef.current.focus();
+  },[])
+
+
   if (password && passwordcheck && password === passwordcheck) {
     checkref.current.innerText = "✔️";
   } else if (password !== passwordcheck) {
@@ -40,12 +50,13 @@ const Signup = () => {
   };
   return (
     <form action="/login" onSubmit={signUpDB}>
+      <p ref={checkref}></p>
       <Form>
         <StFlex>
-          <StInputList>
-            <StHeader>
-              <StImg src={logo} alt="logo" />
-              <StTitle>Dev Box</StTitle>
+           <StInputList>
+            <StHeader to={'/'}>
+                <StImg src={logo} alt="logo" />
+                <StTitle>Dev Box</StTitle>
             </StHeader>
             <StInput
               type="text"
@@ -55,6 +66,7 @@ const Signup = () => {
               }}
               placeholder="Id"
               required
+              ref={focusRef}
             />
             {idCheck(username) ? (
               <p style={{ fontSize: "12px", color: "green" }}>
@@ -76,6 +88,8 @@ const Signup = () => {
               placeholder="Password"
               required
             />
+            {/* ******************************************************************************************************************************* */}
+            
             {passwordCheck(password) ? (
               <p style={{ fontSize: "12px", color: "green" }}>
                 형식에 맞는 비밀번호입니다.
@@ -95,6 +109,7 @@ const Signup = () => {
               placeholder="Confirm Password"
               required
             />
+            {/* ******************************************************************************************************************************* */}
 
             {password !== passwordcheck && password?.length >= 1 ? (
               <p style={{ fontSize: "12px", color: "red" }}>
@@ -107,7 +122,8 @@ const Signup = () => {
               </p>
             ) : null}
           </StInputList>
-          <p ref={checkref}></p>
+          
+          
           <StLabellIST>
             <StLabel htmlFor="profile1">
               <input
@@ -116,6 +132,7 @@ const Signup = () => {
                 name="profile"
                 onChange={handleChange}
                 value={profilePic}
+                required
               />
               <img src={profile_1} />
             </StLabel>
@@ -173,7 +190,7 @@ const Signup = () => {
         </StFlex>
         <Stbtn>
           <StButton type="submit" variant="primary">
-            Sign up
+            가입하기
           </StButton>
         </Stbtn>
       </Form>
@@ -184,49 +201,45 @@ const Signup = () => {
 export default Signup;
 
 const Form = styled.div`
+  ${flex({direction:'column'})}
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const StFlex = styled.div`
+  ${flex({})}
   width: 100%;
   height: 80%;
-  display: flex;
-  align-items: center;
 `;
-const StHeader = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 2vw;
+const StHeader = styled(Link)`
+  ${flex({})}
+  gap: 1rem;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  &:hover{
+    opacity: 0.8;
+  }
 `;
 const StImg = styled.img`
   width: 60px;
 `;
 const StTitle = styled.h1`
-  font-size: 38px;
+  font-size: 2.2rem;
   font-weight: bold;
   color: var(--black);
 `;
 const StInputList = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+  ${flex({direction:'column'})}
   width: 100%;
+  gap: 1.8rem;
 `;
 const StInput = styled.input`
   width: 70%;
-  padding: 15px 20px;
+  padding: 1rem 1.2rem;
 `;
 const Stbtn = styled.div`
+  ${flex({direction:'column'})}
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 const StButton = styled.button`
   background-color: var(--blue);
@@ -236,20 +249,24 @@ const StButton = styled.button`
   color: #fff;
   font-weight: bold;
   margin: 0 auto;
+  &:hover{
+    background-color: var(--Button-blue);
+  }
 `;
 
 const StLabellIST = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
   width: 100%;
-  padding: 2vw 10vw;
-  flex-wrap: wrap;
-  gap: 15px;
 `;
 const StLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  ${flex({direction:'column'})}
+  gap: 1rem;
+  cursor: pointer;
+  & > input:hover{
+      -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0); 
+      box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0);  
+    }
 `;

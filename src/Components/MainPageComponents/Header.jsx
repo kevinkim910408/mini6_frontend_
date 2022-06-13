@@ -1,19 +1,41 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import flex from '../Common/flex'
 import Logo from '../../Public/Image/LogoImage.PNG'
+import { deleteAllCookies, getCookie } from '../../Shared/Cookie'
+import { useImage } from '../CustomHooks/useImage'
 
 const Header = () => {
+    const [isLogin, setIsLogin] = useState(false);
+    const userProfile = useImage();
+    const temp = getCookie("is_login");
+    useEffect(()=>{
+        setIsLogin(temp)
+    },[temp])
+
+    const logOutHandler = () => {
+        deleteAllCookies();
+        setIsLogin(false);
+    }
+    
   return (
     <StHeader>
         <StTitleLink to='/'>
             <img style={{width:'70px'}} src={Logo} alt="" />
             <StTitleSpan>Dev Box</StTitleSpan>
         </StTitleLink>
+        {isLogin ? 
+        <div style={{display:'flex', justifyContent:'center',}}>
+            <img style={{width:'70px', borderRadius:'100%', marginRight:'2rem'}} src={userProfile} alt="" />
+            <StLogInOutButton onClick={logOutHandler}>
+                <span>로그아웃</span>
+            </StLogInOutButton>
+         </div> : 
         <StLogInOutLink to='/login'>
             <span>로그인</span>
         </StLogInOutLink>
+         }
     </StHeader>
   )
 }
@@ -25,8 +47,8 @@ const StHeader = styled.header`
     width: 100%;
     height: 110px;
     background-color: #f4f7fe;
+    font-family: 'Noto Sans KR', sans-serif;
 `;
-
 
 const StTitleLink = styled(Link)`
     ${flex({})}
@@ -63,6 +85,26 @@ const StLogInOutLink = styled(Link)`
     border: none;
     text-decoration: none;
     &:hover{
-        color: #fff
+        color: #fff;
+        background-color: var(--Button-blue);
+    }
+`;
+
+const StLogInOutButton = styled.button`
+    ${flex({})}
+    width: 200px;
+    height: 50px;
+    padding: 5px;
+    margin-right: 3rem;
+    background-color: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    border: none;
+    text-decoration: none;
+    &:hover{
+        color: #fff;
+        background-color: var(--Button-blue);
     }
 `;
