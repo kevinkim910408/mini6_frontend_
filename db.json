@@ -6,6 +6,13 @@
       "passwordcheck": "rlawnsgh11",
       "profilePic": "profile3",
       "id": 1
+    },
+    {
+      "username": "test",
+      "password": "test12",
+      "passwordcheck": "test12",
+      "profilePic": "profile4",
+      "id": 2
     }
   ]
 }
