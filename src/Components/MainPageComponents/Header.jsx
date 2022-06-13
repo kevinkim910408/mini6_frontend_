@@ -8,24 +8,23 @@ import { useImage } from '../CustomHooks/useImage'
 const Header = () => {
     const isLogin = getCookie("is_login");
     const userProfile = useImage();
-    console.log(userProfile)
   return (
     <StHeader>
         <StTitleLink to='/'>
             <img style={{width:'70px'}} src={Logo} alt="" />
             <StTitleSpan>Dev Box</StTitleSpan>
         </StTitleLink>
-        {isLogin }
-        {/* <StLogInOutLink to='/login'>
-            <span>로그인</span>
-        </StLogInOutLink> */}
+        {isLogin === "success" ? 
         <div style={{display:'flex'}}>
             <img style={{width:'70px', borderRadius:'100%'}} src={userProfile} alt="" />
-            {/* <div style={{width:'70px', borderRadius:'100%', backgroundImage:`url()`}} alt="" /> */}
             <StLogInOutLink to='/login'>
                 <span>로그아웃</span>
             </StLogInOutLink>
-        </div>
+         </div> :
+        <StLogInOutLink to='/login'>
+            <span>로그인</span>
+        </StLogInOutLink>
+         }
     </StHeader>
   )
 }
