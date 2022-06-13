@@ -51,7 +51,7 @@ const Content = () => {
         </StSelect>
       </StHeader>
       <StTitle>
-        <StInput maxLength={28} ref={titleInputRef}/>
+        <StInput maxLength={14} ref={titleInputRef}/>
       </StTitle>
       <div style={{width:'80%', height:'2px', border:'1px solid #000', opacity:'0.1', marginTop:'1rem'}}/>
       <StBody>

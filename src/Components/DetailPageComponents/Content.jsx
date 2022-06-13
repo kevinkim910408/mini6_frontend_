@@ -44,16 +44,20 @@ const Content = () => {
   return (
     <StContent>
       <StHeader>
-        <StProfileImg src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg'/>
-        <p>{data.username}</p>
-        <FontAwesomeIcon className='icon' icon={faPenToSquare} onClick={onUpdateHandler}/> 
-        <FontAwesomeIcon className='icon' icon={faTrashCan} onClick={()=>{onDeleteHandler(id)}} />
-        <button onClick={onDoneHandler}>
-            <FontAwesomeIcon className='icon' icon={faCircleCheck} done={done} id={generateIdName()}/>
-        </button>
+        <div style={{display:'flex', alignItems:'center',}}>
+          <StProfileImg style={{width:'50px'}} src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg'/>
+          <p>{data.username}</p>
+        </div>
+        <div style={{width:'100%', display:'flex',justifyContent:'flex-end',  alignItems:'center', margin:'10rem'}}>
+          <FontAwesomeIcon style={{marginRight:'30px'}} className='icon' icon={faPenToSquare} onClick={onUpdateHandler}/> 
+          <FontAwesomeIcon style={{marginRight:'30px'}} className='icon' icon={faTrashCan} onClick={()=>{onDeleteHandler(id)}} />
+          <button onClick={onDoneHandler} style={{border:'none'}}>
+              <FontAwesomeIcon className='icon' icon={faCircleCheck} done={done} id={generateIdName()}/>
+          </button>
+        </div>
       </StHeader>
       <StTitle>
-        <p style={{fontSize:'1.4rem'}}>{data.title}</p>
+        <p style={{fontSize:'3rem'}}>{data.title}</p>
       </StTitle>
       <div style={{width:'80%', height:'1px', border:'1px solid #000', opacity:'0.1'}}/>
       <StBody>
@@ -84,6 +88,10 @@ const StContent = styled.div`
     #notDone{
         color: #000;
     }
+    .icon:hover{
+      cursor: pointer;
+      color: var(--Button-blue);
+    }
 `;
 
 const StHeader = styled.div`
@@ -91,6 +99,7 @@ const StHeader = styled.div`
     width: 90%;
     height:10%;
     margin-top: 1rem;
+    font-size: 2rem;
     & > .icon{
       margin-left: 2rem;
     }

@@ -32,7 +32,7 @@ const Content = (event) => {
     dispatch(__updatePost({
       title:titleInputRef.current.value, 
       content:contentInputRef.current.value, 
-      category: selectedValue,
+      category: selectedValue.toUpperCase(),
       done: false,
     }, data.articleId))
     navigate('/')
@@ -56,7 +56,7 @@ const Content = (event) => {
         </StSelect>
       </StHeader>
       <StTitle>
-        <StInput maxLength={28} ref={titleInputRef} />
+        <StInput maxLength={14} ref={titleInputRef} />
       </StTitle>
       <div style={{width:'80%', height:'2px', border:'1px solid #000', opacity:'0.1', marginTop:'1rem'}}/>
       <StBody>

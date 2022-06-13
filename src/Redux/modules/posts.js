@@ -70,7 +70,6 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) =>{
-    console.log(payload, index)
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
@@ -79,7 +78,6 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
               'Authorization': `Bearer ${myToken}`,
             }
           } );
-        console.log(request)
         dispatch(updatePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
@@ -127,6 +125,7 @@ const postReducer = (state = initialState, {type, payload}) =>{
             return {...state, list: [...state.list, payload]}
         case UPDATE_POST:
             const newChangePost = state.list.map((value) => {
+                console.log(value.articleId, payload.articleId)
                 return value.articleId === Number(payload.articleId) ? payload : value;
             });
             return { ...state, list: newChangePost };
