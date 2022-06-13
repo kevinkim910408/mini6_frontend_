@@ -22,6 +22,7 @@ const Login = (props) => {
       return;
     }
     dispatch(userActions.loginDB(username, password));
+    alert("Dev Box에 오신걸 환영합니다!")
     navigate("/");
   };
 
@@ -31,7 +32,7 @@ const Login = (props) => {
         <form action="/" onSubmit={loginDB}>
           <Form>
             <StInputList>
-              <StHeader>
+              <StHeader to={'/'}>
                 <StImg src={logo} alt="logo" />
                 <StTitle>Dev Box</StTitle>
               </StHeader>
@@ -54,12 +55,12 @@ const Login = (props) => {
                 required
               />
               <StButton type="submit" variant="primary">
-                Sign in
+                로그인
               </StButton>
-              <p>
-                Don't have an account yet?
-                <Link to="/signup">Join Hire Ground</Link>
-              </p>
+              <span>
+                아직 회원이 아니시라면?  
+                <Link to="/signup"> Dev Box와 함께하세요!</Link>
+              </span>
             </StInputList>
           </Form>
         </form>
@@ -107,12 +108,16 @@ const BgWrap = styled.div`
   background: url(${login_bg}) center center no-repeat;
   background-size: cover;
 `;
-const StHeader = styled.header`
+const StHeader = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-bottom: 2vw;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  &:hover{
+    opacity: 0.8;
+  }
 `;
 const StImg = styled.img`
   width: 60px;

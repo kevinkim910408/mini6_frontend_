@@ -46,7 +46,7 @@ const loginDB = (username, password) => {
       })
       .then((response) => {
 
-        window.alert("로그인 성공");
+        //window.alert("로그인 성공");
 
         dispatch(
           logIn({
