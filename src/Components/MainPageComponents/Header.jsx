@@ -3,17 +3,29 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import flex from '../Common/flex'
 import Logo from '../../Public/Image/LogoImage.PNG'
-
+import { getCookie } from '../../Shared/Cookie'
+import { useImage } from '../CustomHooks/useImage'
 const Header = () => {
+    const isLogin = getCookie("is_login");
+    const userProfile = useImage();
+    console.log(userProfile)
   return (
     <StHeader>
         <StTitleLink to='/'>
             <img style={{width:'70px'}} src={Logo} alt="" />
             <StTitleSpan>Dev Box</StTitleSpan>
         </StTitleLink>
-        <StLogInOutLink to='/login'>
+        {isLogin }
+        {/* <StLogInOutLink to='/login'>
             <span>로그인</span>
-        </StLogInOutLink>
+        </StLogInOutLink> */}
+        <div style={{display:'flex'}}>
+            <img style={{width:'70px', borderRadius:'100%'}} src={userProfile} alt="" />
+            {/* <div style={{width:'70px', borderRadius:'100%', backgroundImage:`url()`}} alt="" /> */}
+            <StLogInOutLink to='/login'>
+                <span>로그아웃</span>
+            </StLogInOutLink>
+        </div>
     </StHeader>
   )
 }
@@ -26,7 +38,6 @@ const StHeader = styled.header`
     height: 110px;
     background-color: #f4f7fe;
 `;
-
 
 const StTitleLink = styled(Link)`
     ${flex({})}
