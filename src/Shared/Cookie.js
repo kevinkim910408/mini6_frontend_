@@ -14,8 +14,21 @@ const getCookie = (name) => {
     document.cookie = `${Authorization}=${value}; expires=${date.toUTCString()}`;
   };
   
+  // 잘못된코드
   const deleteCookie = (name) => {
     document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
   };
+
+  function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
   
-  export { getCookie, setCookie, deleteCookie };
+  export { getCookie, setCookie, deleteCookie, deleteAllCookies };
+  

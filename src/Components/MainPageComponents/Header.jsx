@@ -5,9 +5,17 @@ import flex from '../Common/flex'
 import Logo from '../../Public/Image/LogoImage.PNG'
 import { getCookie } from '../../Shared/Cookie'
 import { useImage } from '../CustomHooks/useImage'
+import {useDispatch} from 'react-redux'
+import { actionCreators as userActions } from "../../Redux/modules/users";
+
 const Header = () => {
     const isLogin = getCookie("is_login");
     const userProfile = useImage();
+    const dispatch = useDispatch();
+
+    const logOutHandler = () => {
+        dispatch(userActions.logOutDB());
+    }
   return (
     <StHeader>
         <StTitleLink to='/'>
@@ -17,9 +25,9 @@ const Header = () => {
         {isLogin === "success" ? 
         <div style={{display:'flex'}}>
             <img style={{width:'70px', borderRadius:'100%'}} src={userProfile} alt="" />
-            <StLogInOutLink to='/login'>
+            <button onClick={logOutHandler}>
                 <span>로그아웃</span>
-            </StLogInOutLink>
+            </button>
          </div> :
         <StLogInOutLink to='/login'>
             <span>로그인</span>
