@@ -44,7 +44,6 @@ export const __loadPosts = (page) => async(dispatch, getState) => {
 
 export const __addPost = (payload) => async (dispatch, getState) =>{
     const myToken = getCookie("Authorization");
-    console.log(myToken);
     dispatch(getPostRequest(true))
     try{
         const data = await api.post('api/article', {
@@ -66,9 +65,15 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) =>{
+    console.log(payload, index)
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`api/articles/${index}`, payload );
+        const request = await api.put(`api/articles/${index}`, payload ,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          } );
         console.log(request)
         dispatch(updatePost(request.data))
     }catch(error){
@@ -79,10 +84,17 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
 }
 
 export const __deletePost = (payload) => async (dispatch, getState) => {
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
         // response에서 id값을 받아야합니다.
-        const response = await api.delete(`api/articles/${payload}`);
+        const msg = await api.delete(`api/articles/${payload}`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+        //   console.log(msg.data)
+          alert(msg.data)
         dispatch(deletePost(payload));
     }catch(error){
         dispatch(getPostError(error))

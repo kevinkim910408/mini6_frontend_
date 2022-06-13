@@ -40,7 +40,7 @@ const loadTokenFB = () => {
 const loginDB = (username, password) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:5001/login", {
+      .post("http://13.124.63.214:8080/login", {
         username,
         password,
       })
@@ -70,7 +70,7 @@ const loginDB = (username, password) => {
 const signupDB = (username, password, passwordcheck, profilePic) => {
   return function () {
     axios
-      .post("http://localhost:5001/signup", {
+      .post("http://13.124.63.214:8080/signup", {
         username,
         password,
         passwordcheck,
