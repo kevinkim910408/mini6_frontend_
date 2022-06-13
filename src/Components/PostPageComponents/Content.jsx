@@ -25,7 +25,7 @@ const Content = () => {
 
   const onPostHandler = () => {
     dispatch(__addPost({
-      category: selectedValue,
+      category: selectedValue.toUpperCase(),
       title:titleInputRef.current.value, 
       content:contentInputRef.current.value, 
       done: false,
@@ -144,8 +144,8 @@ const StFooter = styled.div`
 `;
 
 const StButton = styled.button`
-    width: 100px;
-    padding: 5px;
+    width: 150px;
+    padding: 10px;
     margin: 3rem;
     background-color: var(--blue);
     color: #fff;
@@ -153,4 +153,7 @@ const StButton = styled.button`
     font-size: 1.2rem;
     border-radius: 50px;
     border: none;
+    &:hover{
+      background-color: var(--Button-blue);
+    }
 `;

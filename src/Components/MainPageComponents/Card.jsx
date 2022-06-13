@@ -1,6 +1,4 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Common/flex'
@@ -18,7 +16,7 @@ const Card = ({id, title, content, category, username, time, done}) => {
                         <span style={{fontSize:'0.8rem', textAlign:'center'}}>ID: {username}</span>
                     </StDiv>
                     <StTextContents>
-                        <span>- {category} - {yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분 </span>
+                        <span style={{fontSize:'1.3rem', fontWeight:'700'}}>{category}</span> <span>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분 </span>
                         <StDivBos>{title}</StDivBos>
                         <StDivBos>{content}</StDivBos>
                     </StTextContents>

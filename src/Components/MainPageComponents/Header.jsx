@@ -27,8 +27,8 @@ const Header = () => {
             <StTitleSpan>Dev Box</StTitleSpan>
         </StTitleLink>
         {isLogin ? 
-        <div style={{display:'flex'}}>
-            <img style={{width:'70px', borderRadius:'100%'}} src={userProfile} alt="" />
+        <div style={{display:'flex', justifyContent:'center',}}>
+            <img style={{width:'70px', borderRadius:'100%', marginRight:'2rem'}} src={userProfile} alt="" />
             <StLogInOutButton onClick={logOutHandler}>
                 <span>로그아웃</span>
             </StLogInOutButton>
@@ -86,7 +86,8 @@ const StLogInOutLink = styled(Link)`
     border: none;
     text-decoration: none;
     &:hover{
-        color: #fff
+        color: #fff;
+        background-color: var(--Button-blue);
     }
 `;
 
@@ -104,6 +105,7 @@ const StLogInOutButton = styled.button`
     border: none;
     text-decoration: none;
     &:hover{
-        color: #fff
+        color: #fff;
+        background-color: var(--Button-blue);
     }
 `;

@@ -30,6 +30,7 @@ body {
     --black: #000;
     --black: #4A4D53; 
     --blue: #4D7CFE;
+    --Button-blue: #1951ec;
 }
 `;
 

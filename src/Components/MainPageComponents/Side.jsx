@@ -13,7 +13,7 @@ const Side = () => {
           POST
         </StPostButton>
         <div>
-            <Category text="New" icon={faFolderPlus}/>
+            <Category text="ALL" icon={faFolderPlus}/>
             <Category text="Solved" icon={faCircleCheck}/>
             <Category text="Java" icon={faJava}/>
             <Category text="JavaScript" icon={faJs}/>
@@ -48,7 +48,8 @@ const StPostButton = styled(Link)`
     font-size: 1.5rem;
     border: none;
     &:hover{
-      color: #fff;
+        color: #fff;
+        background-color: var(--Button-blue);
     }
 `;
 
