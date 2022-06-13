@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "../Public/Image/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col } from "react-bootstrap";
-// import login_bg from "../Public/Image/login_bg.jpg";
+import login_bg from "../Public/Image/login_bg.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { actionCreators as userActions } from "../Redux/modules/users";
 import { useDispatch } from "react-redux";
@@ -104,7 +104,7 @@ const BlueBg = styled.div`
 const BgWrap = styled.div`
   width: 100%;
   height: 100vh;
-  //background:  로그인 사진 여기입니다.
+  background: url(${login_bg}) center center no-repeat;
   background-size: cover;
 `;
 const StHeader = styled.header`
