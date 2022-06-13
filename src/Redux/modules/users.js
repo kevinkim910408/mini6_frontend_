@@ -17,6 +17,7 @@ const initialState = {
     userPw: "",
   },
   is_login: false,
+  token: "",
 };
 
 // 액션 생성 함수
@@ -45,13 +46,19 @@ const loginDB = (username, password) => {
       })
       .then((response) => {
         console.log(response);
+<<<<<<< Updated upstream
         console.log(response.config.data.split(":"));
         console.log(response.headers);
+=======
+        window.alert("로그인 성공");
+>>>>>>> Stashed changes
 
         dispatch(
           logIn({
             is_login: true,
+            token: response.headers.authorization,
           })
+
         );
         setCookie(
           "Authorization",

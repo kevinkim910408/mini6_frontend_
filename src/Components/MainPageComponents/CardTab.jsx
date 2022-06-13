@@ -16,12 +16,14 @@ const CardTab = () => {
 
   const lists = list.slice(offset, offset+limit).map((value, index)=> {
     return  <Card 
-                key={index} 
-                id={value.id} 
+                key={index}
+                time={value.createdAt}
+                id={value.articleId} 
                 title={value.title} 
                 content={value.content}
-                time={value.time} 
                 category={value.category}
+                done={value.done}
+                username={value.username}
               />
   })
 

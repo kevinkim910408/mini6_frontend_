@@ -1,4 +1,5 @@
 import api from '../../Shared/api'
+import { getCookie } from '../../Shared/Cookie'
 
 const LOAD_POST = 'post/LOAD_POST'
 const ADD_POST = 'post/ADD_POST'
@@ -29,13 +30,11 @@ const initialState = {
     error: null,
 }
 
-export const __loadPosts = () => async(dispatch, getState) => {
-    
+export const __loadPosts = (page) => async(dispatch, getState) => {
     dispatch(getPostRequest(true))
     try{
-        // response - totalpage
-        const response = await api.get('/posts')
-        dispatch(loadPost(response.data));
+        const response = await api.get(`api/articles/page/${page}`)
+        // dispatch(loadPost(response.data));
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -44,15 +43,21 @@ export const __loadPosts = () => async(dispatch, getState) => {
 }
 
 export const __addPost = (payload) => async (dispatch, getState) =>{
+    const myToken = getCookie("Authorization");
+    console.log(myToken);
     dispatch(getPostRequest(true))
     try{
-        const request = await api.post('/posts', {
+        const data = await api.post('api/article', {
             title: payload.title,
             category: payload.category,
             content: payload.content,
             done: payload.done,
-        });
-        dispatch(addPost(request.data))
+        },{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+          dispatch(addPost(data.data))
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -63,7 +68,8 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
 export const __updatePost = (payload, index) => async (dispatch, getState) =>{
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`/posts/${index}`, payload );
+        const request = await api.put(`api/articles/${index}`, payload );
+        console.log(request)
         dispatch(updatePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
@@ -76,7 +82,7 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
     dispatch(getPostRequest(true))
     try{
         // response에서 id값을 받아야합니다.
-        await api.delete(`/posts/${payload}`);
+        const response = await api.delete(`api/articles/${payload}`);
         dispatch(deletePost(payload));
     }catch(error){
         dispatch(getPostError(error))
