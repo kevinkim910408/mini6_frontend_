@@ -30,11 +30,16 @@ const initialState = {
     error: null,
 }
 
-export const __loadPosts = (page) => async(dispatch, getState) => {
+export const __loadPosts = () => async(dispatch, getState) => {
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const response = await api.get(`api/articles/page/${page}`)
-        // dispatch(loadPost(response.data));
+        const response = await api.get(`api/articles`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          })
+          dispatch(loadPost(response.data));
     }catch(error){
         dispatch(getPostError(error))
     }finally{

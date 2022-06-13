@@ -33,6 +33,7 @@ const Content = (event) => {
       title:titleInputRef.current.value, 
       content:contentInputRef.current.value, 
       category: selectedValue,
+      done: false,
     }, data.articleId))
     navigate('/')
   }
