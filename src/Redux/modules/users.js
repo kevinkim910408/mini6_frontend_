@@ -45,7 +45,9 @@ const loginDB = (username, password) => {
         password,
       })
       .then((response) => {
+
         window.alert("로그인 성공");
+
         dispatch(
           logIn({
             is_login: true,
@@ -67,13 +69,12 @@ const loginDB = (username, password) => {
 };
 
 // 회원가입 액션
-const signupDB = (username, password, passwordcheck, profilePic) => {
+const signupDB = (username, password, profilePic) => {
   return function () {
     axios
       .post("http://13.124.63.214:8080/signup", {
         username,
         password,
-        passwordcheck,
         profilePic,
       })
       .then((response) => {

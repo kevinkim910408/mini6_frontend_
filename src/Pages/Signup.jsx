@@ -30,9 +30,7 @@ const Signup = () => {
       window.alert("아이디와 비밀번호를 모두 입력해주세요!");
       return;
     }
-    dispatch(
-      userActions.signupDB(username, password, passwordcheck, profilePic)
-    );
+    dispatch(userActions.signupDB(username, password, profilePic));
     navigate("/login");
   };
 
