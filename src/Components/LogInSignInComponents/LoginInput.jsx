@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ const LoginInput = () => {
     const dispatch = useDispatch();
     const [username, setName] = useState();
     const [password, setPw] = useState();
+    const focusRef = useRef();
 
     const loginDB = () => {
         if (username === "" || password === "") {
@@ -20,6 +21,11 @@ const LoginInput = () => {
      alert("Dev Box에 오신걸 환영합니다!")
      navigate("/");
     };
+
+    useEffect(()=>{
+      focusRef.current.focus();
+    },[])
+
   return (
     <>
         <form action="/" onSubmit={loginDB}>
@@ -37,6 +43,7 @@ const LoginInput = () => {
                 }}
                 placeholder="Id"
                 required
+                ref={focusRef}
               />
               <StInput
                 type="password"
@@ -52,7 +59,9 @@ const LoginInput = () => {
               </StButton>
               <span>
                 아직 회원이 아니시라면?  
-                <Link to="/signup"> Dev Box와 함께하세요!</Link>
+               <StSpan>
+                 <Link to="/signup"> Dev Box와 함께하세요!</Link>
+                </StSpan>
               </span>
             </StInputList>
           </Form>
@@ -112,4 +121,14 @@ const StButton = styled.button`
   color: #fff;
   font-weight: bold;
   margin: 0 auto;
+  &:hover{
+    background-color: var(--Button-blue);
+  }
+`;
+
+const StSpan = styled.span`
+  &:hover{
+    color: var(--Button-blue);
+    filter: brightness(0.5);
+  }
 `;

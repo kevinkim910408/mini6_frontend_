@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import logo from "../Public/Image/logo.png";
@@ -20,8 +20,15 @@ const Signup = () => {
   const [passwordcheck, setPwCheck] = useState();
   const [profilePic, setProfile] = useState();
   const checkref = useRef();
+  const focusRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    focusRef.current.focus();
+  },[])
+
+
   if (password && passwordcheck && password === passwordcheck) {
     checkref.current.innerText = "✔️";
   } else if (password !== passwordcheck) {
@@ -58,6 +65,7 @@ const Signup = () => {
               }}
               placeholder="Id"
               required
+              ref={focusRef}
             />
             {idCheck(username) ? (
               <p style={{ fontSize: "12px", color: "green" }}>
@@ -191,6 +199,7 @@ const Form = styled.div`
   ${flex({direction:'column'})}
   width: 100%;
   height: 100vh;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 const StFlex = styled.div`
   ${flex({})}
@@ -235,6 +244,9 @@ const StButton = styled.button`
   color: #fff;
   font-weight: bold;
   margin: 0 auto;
+  &:hover{
+    background-color: var(--Button-blue);
+  }
 `;
 
 const StLabellIST = styled.div`
@@ -247,4 +259,9 @@ const StLabellIST = styled.div`
 const StLabel = styled.label`
   ${flex({direction:'column'})}
   gap: 1rem;
+  cursor: pointer;
+  & > input:hover{
+      -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0); 
+      box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0);  
+    }
 `;
