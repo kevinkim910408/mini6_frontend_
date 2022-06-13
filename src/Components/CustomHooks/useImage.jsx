@@ -7,7 +7,6 @@ import Pic5 from '../../Public/Image/profile_profile5.png'
 import Pic6 from '../../Public/Image/profile_profile6.png'
 import { getCookie } from "../../Shared/Cookie"
 
-
 export const useImage = () =>{
     const [userPic, setUserPic] = useState();
     const profile = getCookie("profilepic");

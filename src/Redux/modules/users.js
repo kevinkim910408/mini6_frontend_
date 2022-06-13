@@ -1,17 +1,14 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
-import { setCookie, getCookie, deleteAllCookies } from "../../Shared/Cookie";
+import { setCookie, getCookie } from "../../Shared/Cookie";
 
 // 액션
-
 const LOG_IN = "LOG_IN";
-const LOG_OUT = "LOG_OUT";
 const LOAD_TOKEN = "LOAD_TOKEN";
 const WITHDRAWAL = "WITHDRAWAL";
 
 // 초기값
-
 const initialState = {
   userInfo: {
     username: "",
@@ -23,7 +20,6 @@ const initialState = {
 
 // 액션 생성 함수
 const logIn = createAction(LOG_IN, (user) => ({ user }));
-const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const loadToken = createAction(LOAD_TOKEN, (token) => ({ token }));
 const withdrawal = createAction(WITHDRAWAL, (user) => ({ user }));
 
@@ -69,24 +65,6 @@ const loginDB = (username, password) => {
   };
 };
 
-// 
-const logOutDB = () => {
-  return function (dispatch) {
-    axios
-      .post("http://13.124.63.214:8080/logout")
-      .then((response) => {
-        dispatch(
-          logOut({
-            is_login: false,
-          })
-        );
-        // 모든쿠키삭제
-        deleteAllCookies()
-      })
-  };
-}
-
-
 // 회원가입 액션
 const signupDB = (username, password, profilePic) => {
   return function () {
@@ -112,8 +90,7 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state, action)
-        setCookie("is_login", "success");
+        setCookie("is_login", true);
         draft.token = action.payload.user.token;
         draft.user = action.payload.user;
         draft.is_login = true;
@@ -122,12 +99,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_login = true;
       }),
-    [LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
-      setCookie("is_login", "failed");
-      draft.is_login = false;
-    }),
-    
   },
   initialState
 );
@@ -138,7 +109,6 @@ const actionCreators = {
   loginDB,
   signupDB,
   loadTokenFB,
-  logOutDB,
 };
 
 export { actionCreators };

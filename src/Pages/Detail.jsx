@@ -21,6 +21,7 @@ const StDetail = styled.div`
     ${flex({direction:'column'})}
     width: 45%;
     height: 100%;
+    
 `;
 
 

@@ -37,6 +37,7 @@ const StCard = styled.div`
     height: calc((100vh - 110px) / 5);
     padding: 1rem;
     cursor: pointer;
+    
     &:hover{
         background-color: #eff1f5;
     }

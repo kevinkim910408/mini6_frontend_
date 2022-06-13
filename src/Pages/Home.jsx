@@ -41,4 +41,5 @@ const StWrap = styled.div`
   width: 100%;
   height: calc(100vh - 110px);
   background-color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
