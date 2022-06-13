@@ -1,9 +1,9 @@
 /* GlobalStyle.jsx */
-import { createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
-import './font.css'
+import "./font.css";
 
-const GlobalStyle = createGlobalStyle `
+const GlobalStyle = createGlobalStyle`
 ${reset} // normalize
 
 * {
@@ -26,7 +26,7 @@ body {
     --yellow: #fff200;
     --pink: #ffcccc;
     --orange: #ff9f1a;
-    --white: #eee;
+    --white: #fff;
     --black: #000;
     --black: #4A4D53; 
     --blue: #4D7CFE;

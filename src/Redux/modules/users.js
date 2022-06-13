@@ -39,14 +39,15 @@ const loadTokenFB = () => {
 const loginDB = (username, password) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:5001/login", {
+      .post("http://13.124.63.214:8080/login", {
         username,
         password,
       })
       .then((response) => {
         console.log(response);
+        window.alert("로그인 성공");
+
         console.log(response.config.data.split(":"));
-        console.log(response.headers);
 
         dispatch(
           logIn({
@@ -67,13 +68,12 @@ const loginDB = (username, password) => {
 };
 
 // 회원가입 액션
-const signupDB = (username, password, passwordcheck, profilePic) => {
+const signupDB = (username, password, profilePic) => {
   return function () {
     axios
-      .post("http://localhost:5001/signup", {
+      .post("http://13.124.63.214:8080/signup", {
         username,
         password,
-        passwordcheck,
         profilePic,
       })
       .then((response) => {
