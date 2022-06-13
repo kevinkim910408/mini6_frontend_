@@ -28,7 +28,7 @@ const LoginInput = () => {
 
   return (
     <>
-        <form action="/" onSubmit={loginDB}>
+        <form action="" onSubmit={loginDB}>
           <Form>
             <StInputList>
               <StHeader to={'/'}>

@@ -45,7 +45,7 @@ const Content = () => {
     <StContent>
       <StHeader>
         <StProfileImg src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg'/>
-        <p>유저ID</p>
+        <p>{data.username}</p>
         <FontAwesomeIcon className='icon' icon={faPenToSquare} onClick={onUpdateHandler}/> 
         <FontAwesomeIcon className='icon' icon={faTrashCan} onClick={()=>{onDeleteHandler(id)}} />
         <button onClick={onDoneHandler}>

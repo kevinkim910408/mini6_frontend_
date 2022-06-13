@@ -23,7 +23,7 @@ const Home = () => {
       <Header />
       <StWrap>
         <Side />
-        <CardTab />
+          <CardTab />
         <Routes>
           <Route path="detail/:id" element={<Detail />}/>
           <Route path="Post" element={<Post />}/>

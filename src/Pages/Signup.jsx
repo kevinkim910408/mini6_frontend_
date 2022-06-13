@@ -13,6 +13,7 @@ import { idCheck, passwordCheck } from "../Shared/LoginCheck";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import flex from '../Components/Common/flex'
+import PasswordStrengthMeter from "../Components/PasswordStrength/PasswordStrengthMeter";
 
 const Signup = () => {
   const [username, setName] = useState();
@@ -87,6 +88,8 @@ const Signup = () => {
               placeholder="Password"
               required
             />
+            {/* ******************************************************************************************************************************* */}
+            
             {passwordCheck(password) ? (
               <p style={{ fontSize: "12px", color: "green" }}>
                 형식에 맞는 비밀번호입니다.
@@ -106,6 +109,7 @@ const Signup = () => {
               placeholder="Confirm Password"
               required
             />
+            {/* ******************************************************************************************************************************* */}
 
             {password !== passwordcheck && password?.length >= 1 ? (
               <p style={{ fontSize: "12px", color: "red" }}>
@@ -128,6 +132,7 @@ const Signup = () => {
                 name="profile"
                 onChange={handleChange}
                 value={profilePic}
+                required
               />
               <img src={profile_1} />
             </StLabel>

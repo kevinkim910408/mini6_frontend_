@@ -10,7 +10,6 @@ const Header = () => {
     const [isLogin, setIsLogin] = useState(false);
     const userProfile = useImage();
     const temp = getCookie("is_login");
-    console.log(temp)
     useEffect(()=>{
         setIsLogin(temp)
     },[temp])
