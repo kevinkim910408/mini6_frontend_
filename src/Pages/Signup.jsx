@@ -239,7 +239,7 @@ const StButton = styled.button`
 
 const StLabellIST = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 200px 200px 200px;
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
   width: 100%;
