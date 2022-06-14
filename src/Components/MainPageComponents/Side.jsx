@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { faFolderPlus, faCircleCheck, faCircleXmark, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { faJava, faJs, faReact, faNodeJs, faGithub } from "@fortawesome/free-brands-svg-icons";
 import styled from 'styled-components'
@@ -7,10 +7,6 @@ import flex from '../Common/flex'
 import Category from './Category';
 
 const Side = () => {
-  const navigate = useNavigate();
-  const onAboutUsHandler = () =>{
-    navigate('/aboutUs')
-  } 
   return (
     <StSide>
         <StPostButton to={'/post'}>
@@ -18,14 +14,14 @@ const Side = () => {
         </StPostButton>
         <div>
             <Category text="ALL" icon={faFolderPlus}/>
-            <Category text="Solved" icon={faCircleCheck}/>
-            <Category text="UnSolved" icon={faCircleXmark}/>
-            <Category text="Java" icon={faJava}/>
-            <Category text="JavaScript" icon={faJs}/>
-            <Category text="React" icon={faReact}/>
-            <Category text="NodeJs" icon={faNodeJs}/>
-            <Category text="Github" icon={faGithub}/>
-            <Category text="Favourite" icon={faStar}/>
+            <Category text="SOLVED" icon={faCircleCheck}/>
+            <Category text="UNSOLVED" icon={faCircleXmark}/>
+            <Category text="JAVA" icon={faJava}/>
+            <Category text="JAVASCRIPT" icon={faJs}/>
+            <Category text="REACT" icon={faReact}/>
+            <Category text="NODEJS" icon={faNodeJs}/>
+            <Category text="GITHUB" icon={faGithub}/>
+            <Category text="FAVOURITE" icon={faStar}/>
             <Link to={'/aboutUs'}>
               <Category text="About Us" icon={faUserGroup}/>
             </Link>

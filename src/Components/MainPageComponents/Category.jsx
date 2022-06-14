@@ -1,11 +1,19 @@
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, {keyframes} from 'styled-components'
+import { __loadCategories } from '../../Redux/modules/posts';
+import { useDispatch} from 'react-redux';
 
 const Category = ({text, icon}) => {
+    const dispatch = useDispatch();
+
+    const onClickHanlder = () => {
+        dispatch(__loadCategories({text}));
+    }
+    
   return (
     <>
-     <StButton>
+     <StButton onClick={onClickHanlder}>
         <FontAwesomeIcon className='icon' icon={icon} />
         {text}
     </StButton>
