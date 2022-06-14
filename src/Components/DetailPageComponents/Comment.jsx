@@ -1,82 +1,126 @@
-import React from 'react'
-import styled from 'styled-components'
-import flex from '../Common/flex'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import styled from "styled-components";
+import profile_1 from "../../Public/Image/profile_profile1.png";
+// import Delete from "../../Public/Image/Delete.png";
+// import Pencil from "../../Public/Image/Pencil.png";
 
 const Comment = () => {
-  const arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
-  const Lists = arr.map((value,index)=>{
-    return <StExampleComment key={index}>
-            <StProfileImg src='https://www.w3schools.com/howto/img_avatar.png' alt='ProfileImg' />
-            <span>유저 ID</span>
-            <span style={{margin:'0 2rem 0 2rem'}}> 코멘트는 여기에 들어옵니다 코멘트는 여기에요 여기</span>
-            <div style={{margin:'0 2rem 0 0rem'}}>
-              <FontAwesomeIcon className='icon' icon={faPenToSquare} />
-            </div>
-            <div>
-              <FontAwesomeIcon className='icon' icon={faTrashCan} />
-            </div>
-          </StExampleComment>
-  })
+  const arr = [0, 0, 0, 0, 0, 0];
+  const Lists = arr.map((value, index) => {
+    return (
+      <StTextWrap key={index}>
+        <StFlexBetween>
+          <StFlex>
+            <StProfileImg src={profile_1} alt="profileimg" />
+            <span>username</span>
+            <p>2022-06-10</p>
+          </StFlex>
+          <StFlexEnd>
+            <StUpdatebutton>
+              <StUpdateImg src={profile_1} alt="update" />
+            </StUpdatebutton>
+            <StUpdatebutton>
+              <StUpdateImg src={profile_1} alt="Delete" />
+            </StUpdatebutton>
+          </StFlexEnd>
+        </StFlexBetween>
+
+        <StText>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias,
+          accusantium.
+        </StText>
+      </StTextWrap>
+    );
+  });
   return (
-    <StComment>
-      <StInputContainer>
-       <StInput />
-        <button>추가하기</button>
-      </StInputContainer>
-      <StCommentContainer>
-        {Lists}
-      </StCommentContainer>
-    </StComment>
-  )
-}
+    <StContainer>
+      <StCommentList>{Lists}</StCommentList>
+
+      <StInputWrap>
+        <StFlex>
+          <StProfileImg src={profile_1} alt="profileimg" />
+          <span>username</span>
+        </StFlex>
+        <form>
+          <StInput type="text" />
+          <Stbutton>Send</Stbutton>
+        </form>
+      </StInputWrap>
+    </StContainer>
+  );
+};
 
 export default Comment;
-
-const StComment = styled.div`
-    ${flex({direction:'column'})}
-    width: 90%;
-    height: 20%;
-    margin-top: 2rem;
-    -webkit-box-shadow: 5px 5px 24px -11px #000000; 
-    box-shadow: 5px 5px 24px -11px #000000;
-    @media (max-width: 800px) {
-        width: 100%;
-    }
-`;
-
-const StInputContainer = styled.div`
-  ${flex({})}
+const StContainer = styled.div`
+  position: relative;
   width: 100%;
-  height: 20%;
-  
-`;
-
-const StInput = styled.input`
-  width: 90%;
   height: 100%;
-  &:focus{
-    outline: none;
-  }
 `;
-
-const StCommentContainer = styled.div`
-  ${flex({direction:'column', justify:'flex-start'})}
+const StTextWrap = styled.div`
   width: 100%;
+  box-shadow: 0px 4px 21px 0px rgba(89, 102, 122, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+`;
+const StInputWrap = styled.div`
+  width: 47%;
+  background-color: #fff;
+  box-shadow: 0px 4px 21px 0px rgba(89, 102, 122, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+`;
+const StCommentList = styled.div`
+  height: 150px;
   overflow: scroll;
 `;
-
-const StExampleComment = styled.div`
- ${flex({})}
-  width: 90%;
-  margin-top: 0.2rem;
-  border: 1px solid rgba(0,0,0,0.3);
-  border-radius: 30px;
+const StFlex = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
 `;
-
+const StFlexBetween = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const StFlexEnd = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+`;
 const StProfileImg = styled.img`
-  width: 4%;
-  margin: 0 2rem 0 3rem;
-  border-radius: 100%;
+  width: 40px;
+`;
+const StInput = styled.input`
+  width: 100%;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+`;
+const StText = styled.p`
+  margin-top: 10px;
+`;
+const StUpdatebutton = styled.button`
+  background-color: transparent;
+  border: 0;
+`;
+const Stbutton = styled.button`
+  background-color: #eef2f5;
+  border: 0;
+  color: #666;
+  padding: 10px 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  float: right;
+`;
+const StUpdateImg = styled.img`
+  width: 20px;
 `;
