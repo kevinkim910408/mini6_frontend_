@@ -67,6 +67,7 @@ const loginDB = (username, password) => {
 
 // 회원가입 액션
 const signupDB = (username, password, profilePic) => {
+  console.log(profilePic)
   return function () {
     axios
       .post("http://13.124.63.214:8080/signup", {

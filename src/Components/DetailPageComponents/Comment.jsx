@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import profile_1 from "../../Public/Image/profile_profile1.png";
-// import Delete from "../../Public/Image/Delete.png";
-// import Pencil from "../../Public/Image/Pencil.png";
+import Delete from "../../Public/Image/Delete.png";
+import Pencil from "../../Public/Image/Pencil.png";
 
 const Comment = () => {
   const arr = [0, 0, 0, 0, 0, 0];
@@ -17,10 +17,10 @@ const Comment = () => {
           </StFlex>
           <StFlexEnd>
             <StUpdatebutton>
-              <StUpdateImg src={profile_1} alt="update" />
+              <StUpdateImg src={Pencil} alt="update" />
             </StUpdatebutton>
             <StUpdatebutton>
-              <StUpdateImg src={profile_1} alt="Delete" />
+              <StUpdateImg src={Delete} alt="Delete" />
             </StUpdatebutton>
           </StFlexEnd>
         </StFlexBetween>
@@ -54,7 +54,7 @@ export default Comment;
 const StContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 60%;
 `;
 const StTextWrap = styled.div`
   width: 100%;
@@ -63,17 +63,17 @@ const StTextWrap = styled.div`
   margin-top: 20px;
 `;
 const StInputWrap = styled.div`
-  width: 47%;
+  width: 100%;
   background-color: #fff;
   box-shadow: 0px 4px 21px 0px rgba(89, 102, 122, 0.1);
   padding: 20px;
   margin-top: 20px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
 `;
 const StCommentList = styled.div`
-  height: 150px;
+  height: 50%;
   overflow: scroll;
 `;
 const StFlex = styled.div`
@@ -103,7 +103,7 @@ const StInput = styled.input`
   width: 100%;
   margin: 15px 0;
   border: 1px solid #ddd;
-  padding: 10px 20px;
+  padding: 5px 20px;
 `;
 const StText = styled.p`
   margin-top: 10px;
@@ -117,7 +117,7 @@ const Stbutton = styled.button`
   border: 0;
   color: #666;
   padding: 10px 30px;
-  border-radius: 15px;
+  border-radius: 10px;
   font-weight: bold;
   float: right;
 `;
