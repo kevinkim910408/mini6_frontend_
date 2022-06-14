@@ -2,6 +2,7 @@ import api from '../../Shared/api'
 import { getCookie } from '../../Shared/Cookie'
 
 const LOAD_POST = 'post/LOAD_POST'
+const LOAD_CATEGORY = 'post/LOAD_CATEGORY'
 const ADD_POST = 'post/ADD_POST'
 const UPDATE_POST = 'post/UPDATE_POST'
 const DELETE_POST = 'post/DELETE_POST'
@@ -11,6 +12,7 @@ const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
 const GET_POST_ERROR = 'post/GET_POST_ERROR'
 
 const loadPost = (payload) => ({type: LOAD_POST, payload})
+const loadCategory = (payload) => ({type: LOAD_CATEGORY, payload})
 const addPost = (payload) => ({type: ADD_POST, payload})
 const updatePost = (payload) => ({type: UPDATE_POST, payload})
 const deletePost = (payload) => ({type: DELETE_POST, payload})
@@ -40,6 +42,23 @@ export const __loadPosts = () => async(dispatch, getState) => {
             }
           })
           dispatch(loadPost(response.data));
+    }catch(error){
+        dispatch(getPostError(error))
+    }finally{
+        dispatch(getPostRequest(false))
+    }
+}
+
+export const __loadCategories = (payload) => async(dispatch, getState) => {
+    const myToken = getCookie("Authorization");
+    dispatch(getPostRequest(true))
+    try{
+        const response = await api.get(`/api/articles/category/${payload.text}`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          })
+          dispatch(loadCategory(response.data));
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -120,6 +139,8 @@ export const __donePost = (payload, id) => async (dispatch, getState) =>{
 const postReducer = (state = initialState, {type, payload}) =>{
     switch(type){
         case LOAD_POST:
+            return{ ...state, list: payload}
+        case LOAD_CATEGORY:
             return{ ...state, list: payload}
         case ADD_POST:
             return {...state, list: [...state.list, payload]}

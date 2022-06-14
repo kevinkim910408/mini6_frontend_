@@ -18,12 +18,13 @@ const Home = () => {
   useEffect(() => {
     dispatch(__loadPosts())
   }, [dispatch])
+  
   return (
     <>
       <Header />
       <StWrap>
         <Side />
-          <CardTab />
+        <CardTab />
         <Routes>
           <Route path="detail/:id" element={<Detail />}/>
           <Route path="Post" element={<Post />}/>

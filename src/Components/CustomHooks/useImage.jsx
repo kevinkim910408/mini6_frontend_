@@ -16,17 +16,17 @@ export const useImage = () =>{
     },[profile])
 
     switch(userPic){
-        case "profile_profile1.png":
+        case "profile1":
             return Pic1;
-        case "profile_profile2.png":
+        case "profile2":
             return Pic2;
-        case "profile_profile3.png":
+        case "profile3":
             return Pic3;
-        case "profile_profile4.png":
+        case "profile4":
             return Pic4;
-        case "profile_profile5.png":
+        case "profile5":
             return Pic5;
-        case "profile_profile6.png":
+        case "profile6":
             return Pic6;
         default:
             return userPic;

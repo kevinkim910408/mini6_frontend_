@@ -5,7 +5,6 @@
 /*  아래처럼 가져다 쓰시면 됩니다! */
 /* font-family: 'Akaya Telivigala', cursive; */
 
-
 @font-face {
   font-family: 'GyeonggiBatang'; 
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') 
@@ -17,4 +16,11 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 .notosanskr * { 
  font-family: 'Noto Sans KR', sans-serif;
+}
+
+@font-face {
+  font-family: 'MYYeongnamnu';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/MYYeongnamnu.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }

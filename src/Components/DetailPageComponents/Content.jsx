@@ -163,4 +163,5 @@ const StBody = styled.div`
   margin-top: 20px;
   width: 100%;
   color: #4a4d53;
+  white-space: pre-wrap;
 `;

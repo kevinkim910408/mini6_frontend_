@@ -50,6 +50,7 @@ const Content = (event) => {
           <option value="java">JAVA</option>
           <option value="javascript">JAVASCRIPT</option>
           <option value="react">REACT</option>
+          <option value="spring">SPRING</option>
           <option value="nodejs">NODEJS</option>
           <option value="github">GITHUB</option>
           <option value="others">OTHERS</option>
