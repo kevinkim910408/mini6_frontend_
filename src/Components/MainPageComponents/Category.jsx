@@ -3,11 +3,14 @@ import styled, {keyframes} from 'styled-components'
 import { __loadCategories } from '../../Redux/modules/posts';
 import { useDispatch} from 'react-redux';
 import flex from '../Common/flex';
+import { useNavigate } from 'react-router-dom';
 
 const Category = ({text, icon}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onClickHanlder = () => {
+        navigate('/')
         dispatch(__loadCategories({text}));
     }
     
