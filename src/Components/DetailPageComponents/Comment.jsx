@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import profile_1 from "../../Public/Image/profile_1.png";
-import Delete from "../../Public/Image/Delete.png";
-import Pencil from "../../Public/Image/Pencil.png";
+import profile_1 from "../../Public/Image/profile_profile1.png";
+// import Delete from "../../Public/Image/Delete.png";
+// import Pencil from "../../Public/Image/Pencil.png";
 
 const Comment = () => {
   const arr = [0, 0, 0, 0, 0, 0];
@@ -17,10 +17,10 @@ const Comment = () => {
           </StFlex>
           <StFlexEnd>
             <StUpdatebutton>
-              <StUpdateImg src={Pencil} alt="update" />
+              <StUpdateImg src={profile_1} alt="update" />
             </StUpdatebutton>
             <StUpdatebutton>
-              <StUpdateImg src={Delete} alt="Delete" />
+              <StUpdateImg src={profile_1} alt="Delete" />
             </StUpdatebutton>
           </StFlexEnd>
         </StFlexBetween>
