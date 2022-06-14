@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { faFolderPlus, faCircleCheck, faCircleXmark, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { faJava, faJs, faReact, faNodeJs, faGithub } from "@fortawesome/free-brands-svg-icons";
 import styled from 'styled-components'
@@ -7,6 +7,10 @@ import flex from '../Common/flex'
 import Category from './Category';
 
 const Side = () => {
+  const navigate = useNavigate();
+  const onAboutUsHandler = () =>{
+    navigate('/aboutUs')
+  } 
   return (
     <StSide>
         <StPostButton to={'/post'}>
@@ -22,7 +26,9 @@ const Side = () => {
             <Category text="NodeJs" icon={faNodeJs}/>
             <Category text="Github" icon={faGithub}/>
             <Category text="Favourite" icon={faStar}/>
-            <Category text="About Us" icon={faUserGroup}/>
+            <Link to={'/aboutUs'}>
+              <Category text="About Us" icon={faUserGroup}/>
+            </Link>
         </div>
     </StSide>
   )
@@ -55,4 +61,3 @@ const StPostButton = styled(Link)`
         background-color: var(--Button-blue);
     }
 `;
-
