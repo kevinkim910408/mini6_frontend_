@@ -17,7 +17,7 @@ const AboutUs = () => {
   const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
   const FadeUp = batch(Fade(), Move(), Sticky());
   return (
-    <>
+    <div style={{fontFamily: 'MYYeongnamnu'}}>
       <ScrollButton />
       <ScrollContainer>
       
@@ -92,7 +92,7 @@ const AboutUs = () => {
         <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -500))}>
           <StDiv>
           <img style={{width:'100px'}} src={Pic4} alt="" />
-          <p style={{ fontSize: "40px", marginBottom:'5px' }}>아침햇살 🌞</p>
+          <p style={{ fontSize: "40px", marginBottom:'5px' }}>아침햇살 🌞 / 리액트 신 🧚‍♀️</p>
           <p style={{ fontSize: "40px" }}>손 유 정 님 ✨</p>
           </StDiv>
         </Animator>
@@ -148,7 +148,7 @@ const AboutUs = () => {
           </a>
         </p>
         <p style={{ fontSize: "30px", marginBottom:'20px' }}>
-          파티 하러 떠날까요? 눈아픔 주의-{'>'}
+          원래 About Us Page 테마, 눈아픔 주의-{'>'}
           <Link to='/crazy'>클릭해주세요 🎊</Link>
         </p>
         <p style={{ fontSize: "30px", marginBottom:'20px' }}>
@@ -160,7 +160,7 @@ const AboutUs = () => {
     </ScrollPage>
 
     </ScrollContainer>
-  </>
+  </div>
   )
 }
 

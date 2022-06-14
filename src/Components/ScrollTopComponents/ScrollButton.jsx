@@ -38,12 +38,14 @@ export default ScrollButton;
 const Button = styled.div`
 	position: fixed;
 	width: 100%;
-	height: 100vh;
-	bottom: 20%;
-	height: 20px;
-	font-size: 10rem;
-	margin-left: 80rem;
+	bottom: 10%;
+	left:0;
+	font-size: 5rem;
+	margin-left: 100rem;
 	z-index: 1;
 	cursor: pointer;
 	color: var(--blue);
+	&:hover{
+		color: var(--Button-blue)
+	}
 `
