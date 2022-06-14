@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { faFolderPlus, faCircleCheck, faCircleXmark, faStar, faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import { faFolderPlus, faCircleCheck, faCircleXmark, faStar, faUserGroup, faGuitar } from "@fortawesome/free-solid-svg-icons";
 import { faJava, faJs, faReact, faNodeJs, faGithub } from "@fortawesome/free-brands-svg-icons";
 import styled from 'styled-components'
 import flex from '../Common/flex'
@@ -21,6 +21,7 @@ const Side = () => {
             <Category text="REACT" icon={faReact}/>
             <Category text="NODEJS" icon={faNodeJs}/>
             <Category text="GITHUB" icon={faGithub}/>
+            <Category text="OTHERS" icon={faGuitar}/>
             <Category text="FAVOURITE" icon={faStar}/>
             <Link to={'/aboutUs'}>
               <Category text="About Us" icon={faUserGroup}/>
