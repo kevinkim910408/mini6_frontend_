@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <StHeader>
         <StTitleLink to='/'>
-            <img style={{width:'70px'}} src={Logo} alt="" />
+            <img style={{width:'100px'}} src={Logo} alt="" />
             <StTitleSpan>Dev Box</StTitleSpan>
         </StTitleLink>
         {isLogin ? 
@@ -64,7 +64,7 @@ const StTitleLink = styled(Link)`
 `;
 
 const StTitleSpan = styled.div`
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     font-weight: 700;
     @media (max-width: 800px) {
         display: none;
