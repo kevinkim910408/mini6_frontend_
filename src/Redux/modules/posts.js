@@ -50,7 +50,6 @@ export const __loadPosts = () => async(dispatch, getState) => {
 }
 
 export const __loadCategories = (payload) => async(dispatch, getState) => {
-    console.log(payload.text)
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
@@ -59,7 +58,6 @@ export const __loadCategories = (payload) => async(dispatch, getState) => {
               'Authorization': `Bearer ${myToken}`,
             }
           })
-          console.log(response)
           dispatch(loadCategory(response.data));
     }catch(error){
         dispatch(getPostError(error))

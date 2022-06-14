@@ -1,8 +1,8 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, {keyframes} from 'styled-components'
 import { __loadCategories } from '../../Redux/modules/posts';
 import { useDispatch} from 'react-redux';
+import flex from '../Common/flex';
 
 const Category = ({text, icon}) => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Category = ({text, icon}) => {
   return (
     <>
      <StButton onClick={onClickHanlder}>
-        <FontAwesomeIcon className='icon' icon={icon} />
+        <img src={icon} alt="" />
         {text}
     </StButton>
     </>
@@ -30,9 +30,10 @@ const animation = keyframes`
 `;
 
 const StButton = styled.button`
+    ${flex({justify:'flex-start'})}
     width: 100%;
     height: 30px;
-    margin: 2rem 0 0 2.5rem;
+    margin: 2rem 0 0 0;
     background-color: transparent;
     font-size: 1.5rem;
     text-align: start;
@@ -43,6 +44,9 @@ const StButton = styled.button`
     }
     &:hover{
         animation: ${animation} 0.6s
+    }
+    &:focus{
+        color: var(--Button-blue);
     }
     @media (max-width: 950px) {
         .icon{
