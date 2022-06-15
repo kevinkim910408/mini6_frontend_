@@ -30,11 +30,6 @@ const Signup = () => {
   },[])
 
 
-  if (password && passwordcheck && password === passwordcheck) {
-    checkref.current.innerText = "✔️";
-  } else if (password !== passwordcheck) {
-    checkref.current.innerText = "❌";
-  }
   const signUpDB = async () => {
     if (username === "" || password === "" || passwordcheck === "") {
       window.alert("아이디와 비밀번호를 모두 입력해주세요!");
@@ -70,13 +65,13 @@ const Signup = () => {
             />
             {idCheck(username) ? (
               <p style={{ fontSize: "12px", color: "green" }}>
-                형식에 맞는 아이디입니다.
+                Dev Box에 가입해 주셔서 감사합니다.
               </p>
             ) : null}
             {!idCheck(username) ? (
               <p style={{ fontSize: "12px", color: "red" }}>
                 {" "}
-                2~ 10자 한글, 영문, 숫자 가능, 특수문자 -_ 가능
+                숫자 그리고 영어를 모두 포함하여 4~15 사이로 만들어 주세요
               </p>
             ) : null}
             <StInput
@@ -97,7 +92,7 @@ const Signup = () => {
             ) : null}
             {!passwordCheck(password) ? (
               <p style={{ fontSize: "12px", color: "red" }}>
-                6~20자 영문 숫자 필수, 특수문자 !@#$%^&* 가능
+               영어 숫자 그리고 특수문자를 모두 포함하여 4~20 사이로 만들어 주세요
               </p>
             ) : null}
             <StInput
@@ -111,18 +106,15 @@ const Signup = () => {
             />
             {/* ******************************************************************************************************************************* */}
 
-            {password !== passwordcheck && password?.length >= 1 ? (
               <p style={{ fontSize: "12px", color: "red" }}>
-                비밀번호가 일치하지 않습니다.
+                비밀번호가 일치하지 않거나 비어있습니다.
               </p>
-            ) : null}
             {password === passwordcheck && password?.length > 5 ? (
               <p style={{ fontSize: "12px", color: "green" }}>
                 비밀번호가 일치합니다.
               </p>
             ) : null}
           </StInputList>
-          
           
           <StLabellIST>
             <StLabel htmlFor="profile1">
@@ -187,6 +179,7 @@ const Signup = () => {
               <img src={profile_6} />
             </StLabel>
           </StLabellIST>
+          
         </StFlex>
         <Stbtn>
           <StButton type="submit" variant="primary">
