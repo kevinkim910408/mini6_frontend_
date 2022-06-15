@@ -21,20 +21,37 @@ const initialState = {
 //thunk
 export const __loadComment = (articleId) => async (dispatch, getState) => {
   const myToken = getCookie("Authorization");
-  const response = await api.get(`/api/articles/${articleId}/comments`, {
+  const data = await api.get(`/api/articles/${articleId}/comments`, {
     headers: {
       Authorization: `Bearer ${myToken}`,
     },
   });
-  dispatch(loadComment(response.data));
+  dispatch(loadComment(data.data));
 };
 
 export const __addComment =
   (payload, articleId) => async (dispatch, getState) => {
     const myToken = getCookie("Authorization");
-
     const data = await api.post(
       `/api/articles/${articleId}/comments`,
+      {
+        comment: payload.inputValue,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
+    );
+    dispatch(addComment(data.data));
+  };
+
+export const __updateComment =
+  (payload, commentId) => async (dispatch, getState) => {
+    const myToken = getCookie("Authorization");
+    const data = await api.put(
+      `
+        /api/articles/comments/${commentId}`,
       {
         comment: payload.comment,
       },
@@ -44,26 +61,11 @@ export const __addComment =
         },
       }
     );
-    dispatch(__addComment(data.data));
-  };
-
-export const __updateComment =
-  (payload, commentId) => async (dispatch, getState) => {
-    const myToken = getCookie("Authorization");
-    const request = await api.put(
-      `
-        /api/articles/comments/${commentId}`,
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${myToken}`,
-        },
-      }
-    );
-    dispatch(updateComment(request.data));
+    console.log(data);
+    dispatch(updateComment(data.data));
   };
 export const __deleteComment =
-  (payload, commentId) => async (dispatch, getState) => {
+  (commentId) => async (dispatch, getState) => {
     const myToken = getCookie("Authorization");
     const msg = await api.delete(`/api/articles/comments/${commentId}`, {
       headers: {
@@ -71,7 +73,7 @@ export const __deleteComment =
       },
     });
     alert(msg.data);
-    dispatch(deleteComment(payload));
+    dispatch(deleteComment(commentId));
   };
 
 //reducer
@@ -91,7 +93,7 @@ const commentReducer = (state = initialState, { type, payload }) => {
       const newDeletedComment = state.comment.filter((value) => {
         return value.commentId !== Number(payload);
       });
-      return { ...state, list: [...newDeletedComment] };
+      return { ...state, comment: [...newDeletedComment] };
     default:
       return state;
   }

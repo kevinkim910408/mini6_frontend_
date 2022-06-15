@@ -202,7 +202,6 @@ export const __addLike = ({id}) => async (dispatch, getState) =>{
 }
 
 const postReducer = (state = initialState, {type, payload}) =>{
-    console.log(payload)
     switch(type){
         case LOAD_POST:
             return{ ...state, list: payload}

@@ -1,50 +1,82 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import profile_1 from "../../Public/Image/profile_profile1.png";
 import Delete from "../../Public/Image/Delete.png";
 import Pencil from "../../Public/Image/Pencil.png";
+import { __addComment, __loadComment } from "../../Redux/modules/comment";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { useParams } from 'react-router-dom'
+import useProfile from '../../Components/CustomHooks/useProfile'
 
 const Comment = () => {
-  const arr = [0, 0, 0, 0, 0, 0];
-  const Lists = arr.map((value, index) => {
-    return (
-      <StTextWrap key={index}>
-        <StFlexBetween>
-          <StFlex>
-            <StProfileImg src={profile_1} alt="profileimg" />
-            <span>username</span>
-            <p>2022-06-10</p>
-          </StFlex>
-          <StFlexEnd>
-            <StUpdatebutton>
-              <StUpdateImg src={Pencil} alt="update" />
-            </StUpdatebutton>
-            <StUpdatebutton>
-              <StUpdateImg src={Delete} alt="Delete" />
-            </StUpdatebutton>
-          </StFlexEnd>
-        </StFlexBetween>
 
-        <StText>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias,
-          accusantium.
-        </StText>
-      </StTextWrap>
-    );
-  });
+const [inputValue, setInputValue] = useState();
+const dispatch = useDispatch();
+
+
+const { list } = useSelector((state) => state.postReducer);
+const { comment } = useSelector((state) => state.commentReducer);
+const { id } = useParams(); // 10
+
+
+
+const data = list.find((value) => {
+  return value.articleId === +id;
+});
+const userImage = useProfile(data.profilePic);
+
+const inputRef = useRef(null)
+const onInputHandler = () => {
+  setInputValue(inputRef.current.value);
+}
+
+const onClickEventHandler = () => {
+  dispatch(__addComment({inputValue}, data.articleId))
+}
+
+useEffect(()=>{
+  dispatch(__loadComment(data.articleId))
+},[dispatch, data.articleId])
+
+const yearMonth = data.createdAt.split("-") // year, month
+const day = yearMonth[2].split("T") // day
+const timeVal = day[1].split(":") // hour, minute
+
+const Comments = comment.map((value, index) => {
+  return (
+    <StTextWrap key={index}>
+      <StFlexBetween>
+        <StFlex>
+          <StProfileImg src={userImage} alt="profileimg" style={{borderRadius:'100%'}}/>
+          <span>{data.username}</span>
+          <p>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분</p>
+        </StFlex>
+        <StFlexEnd>
+          <StUpdatebutton>
+            <StUpdateImg src={Pencil} alt="update" />
+          </StUpdatebutton>
+          <StUpdatebutton>
+            <StUpdateImg src={Delete} alt="Delete" />
+          </StUpdatebutton>
+        </StFlexEnd>
+      </StFlexBetween>
+      <StText>
+       {value.comment}
+      </StText>
+    </StTextWrap>
+  );
+});
+
   return (
     <StContainer>
-      <StCommentList>{Lists}</StCommentList>
-
+      <StCommentList>{Comments}</StCommentList>
       <StInputWrap>
         <StFlex>
           <StProfileImg src={profile_1} alt="profileimg" />
           <span>username</span>
         </StFlex>
-        <form>
-          <StInput type="text" />
-          <Stbutton>Send</Stbutton>
-        </form>
+        <StInput type="text" ref={inputRef} onChange={()=>{onInputHandler()}}/>
+        <Stbutton onClick={onClickEventHandler}>Send</Stbutton>
       </StInputWrap>
     </StContainer>
   );
