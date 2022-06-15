@@ -5,10 +5,11 @@ import {
   faTrashCan,
   faCircleCheck,
   faHeart,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { __deletePost, __donePost, __addLike } from "../../Redux/modules/posts";
+import { __deletePost, __donePost, __addLike, __toggleFav } from "../../Redux/modules/posts";
 import styled from "styled-components";
 import flex from "../Common/flex";
 import profile_1 from "../../Public/Image/profile_profile1.png";
@@ -20,6 +21,7 @@ const Content = () => {
   const { id } = useParams(); // 10
   const [done, setDone] = useState(false);
   const [like, setLike] = useState();
+  const [fav, setFav] = useState(false);
 
   const data = list.find((value) => {
     return value.articleId === +id;
@@ -33,9 +35,36 @@ const Content = () => {
     }
   };
 
+  const generateIdLike = () => {  
+    if (like === 0) {
+      return "noLike";
+    } else {
+      return "like";
+    }
+  };
+
+  
+  const generateIdFav = () => {  
+    if (fav) {
+      return "fav";
+    } else {
+      return "notFav";
+    }
+  };
+
   const onDoneHandler = () => {
     dispatch(__donePost({ id }));
   };
+
+  const onLikeHandler = () => {
+    dispatch(__addLike({id: data.articleId}))
+  }
+
+  const onFavHandler = () => {
+    dispatch(__toggleFav({ id }))
+    // setFav(value => !value)
+  }
+  
 
   const onUpdateHandler = () => {
     navigate(`/update/${data.articleId}`);
@@ -46,17 +75,7 @@ const Content = () => {
     navigate("/");
   };
 
-  const generateIdLike = () => {  
-    if (like === 0) {
-      return "noLike";
-    } else {
-      return "like";
-    }
-  };
 
-  const onLikeHandler = () => {
-    dispatch(__addLike({id: data.articleId}))
-  }
 
   useEffect(()=>{
     setDone(data.done)
@@ -96,7 +115,15 @@ const Content = () => {
               onDeleteHandler(id);
             }}
           />
-         <StButton onClick={onLikeHandler} >
+         <StButton onClick={onFavHandler} >
+            <FontAwesomeIcon
+              className="icon"
+              icon={faStar}
+              id={generateIdFav()}
+            />
+          </StButton>
+
+          <StButton onClick={onLikeHandler} >
             <FontAwesomeIcon
               className="icon"
               icon={faHeart}
@@ -160,6 +187,12 @@ const StContent = styled.div`
   #like{
     color: red;
   }
+  #fav{
+    color: orange;
+  }
+  #notFav{
+    color: #000
+  }
 `;
 
 const StHeader = styled.div`
@@ -203,5 +236,4 @@ const StBody = styled.div`
 const StButton = styled.button`
   margin-right: 30px;
   border:none;
-
 `;
