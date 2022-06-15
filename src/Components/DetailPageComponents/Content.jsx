@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
@@ -18,22 +18,20 @@ const Content = () => {
   const { id } = useParams(); // 10
   const [done, setDone] = useState(false);
 
-  const onDoneHandler = () => {
-    // setDone((value) => !value);
-    setDone(true)
-    dispatch(__donePost({ id }));
-  };
-
   const data = list.find((value) => {
     return value.articleId === +id;
   });
 
-  const generateIdName = () => {
+  const generateIdName = () => {  
     if (done) {
       return "done";
     } else {
       return "notDone";
     }
+  };
+  const onDoneHandler = () => {
+    // setDone((value) => !value);
+    dispatch(__donePost({ id }));
   };
 
   const onUpdateHandler = () => {
@@ -44,6 +42,10 @@ const Content = () => {
     dispatch(__deletePost(id));
     navigate("/");
   };
+
+  useEffect(()=>{
+    setDone(data.done)
+  },[data.done])
 
   return (
     <StContent>
@@ -83,7 +85,7 @@ const Content = () => {
               className="icon"
               icon={faCircleCheck}
               done={done}
-              id={generateIdName()}
+              id={generateIdName()} // 상태값에따라서 id값 변경, toggle -> 클래스 이미 쓰고있어서 id로 했어요
             />
           </button>
         </div>

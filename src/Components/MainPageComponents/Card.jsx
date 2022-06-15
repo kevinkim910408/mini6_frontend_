@@ -9,7 +9,6 @@ const Card = ({id, title, content, category, username, time, profilePic}) => {
     const day = yearMonth[2].split("T") // day
     const timeVal = day[1].split(":") // hour, minute
     const userImage = useProfile(profilePic);
-    console.log(userImage)
     return (
         <StLink to={`/detail/${id}`}>
             <StCard>

@@ -38,7 +38,7 @@ const loadTokenFB = () => {
 const loginDB = (username, password) => {
   return function (dispatch) {
     axios
-      .post("http://13.124.63.214:8080/login", {
+      .post("http://13.209.88.160:8080/login", {
         username,
         password,
       })
@@ -70,7 +70,7 @@ const signupDB = (username, password, profilePic) => {
   console.log(profilePic)
   return function () {
     axios
-      .post("http://13.124.63.214:8080/signup", {
+      .post("http://13.209.88.160:8080/signup", {
         username,
         password,
         profilePic,

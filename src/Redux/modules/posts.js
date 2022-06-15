@@ -124,19 +124,17 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
 }
 
 export const __donePost = ({id}) => async (dispatch, getState) =>{
-    console.log(id)
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const data = await api.patch(`/api/articles/${id}/done`, {
+        const data = await api.patch(`/api/articles/${id}/done`, { }, {
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
           });
-        console.log(data)
-        // dispatch(donePost(request.data))
+        dispatch(donePost(data.data))
     }catch(error){
-        dispatch(getPostError(error))
+        alert(error)
     }finally{
         dispatch(getPostRequest(false))
     }
@@ -162,7 +160,10 @@ const postReducer = (state = initialState, {type, payload}) =>{
             });
             return { ...state, list: [...newDeletedPost] };
         case DONE_POST:
-            return {...state };
+            const newData = state.list.map((value)=>{
+                return value.articleId === Number(payload.articleId) ? payload : value;
+            })
+            return {...state, list: [...newData]};
         case GET_POST_REQUEST:
             return {...state, loading: payload }
         case GET_POST_ERROR:
