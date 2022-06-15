@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled, {keyframes} from 'styled-components'
-import { __loadCategories } from '../../Redux/modules/posts';
+import { __loadCategories, __loadPosts } from '../../Redux/modules/posts';
 import { useDispatch} from 'react-redux';
 import flex from '../Common/flex';
 import { useNavigate } from 'react-router-dom';
@@ -13,8 +13,11 @@ const Category = ({text, icon}) => {
         navigate('/')
         dispatch(__loadCategories({text}));
     }
-    
-  return (
+
+    if(text === "ALL")
+        dispatch(__loadPosts());
+        
+    return (
     <>
      <StButton onClick={onClickHanlder}>
         <img src={icon} alt="" />

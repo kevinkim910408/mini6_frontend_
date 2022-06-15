@@ -19,8 +19,9 @@ const Content = () => {
   const [done, setDone] = useState(false);
 
   const onDoneHandler = () => {
-    setDone((value) => !value);
-    dispatch(__donePost({ id, done }, id));
+    // setDone((value) => !value);
+    setDone(true)
+    dispatch(__donePost({ id }));
   };
 
   const data = list.find((value) => {

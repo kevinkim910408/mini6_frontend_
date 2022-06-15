@@ -2,8 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import flex from '../Common/flex'
+import Img from '../../Public/Image/profile_profile1.png'
+import Img2 from '../../Public/Image/profile_profile2.png'
+import Img3 from '../../Public/Image/profile_profile3.png'
+import Img4 from '../../Public/Image/profile_profile4.png'
+import Img5 from '../../Public/Image/profile_profile5.png'
+import Img6 from '../../Public/Image/profile_profile6.png'
 
-const Card = ({id, title, content, category, username, time, done}) => {
+const Card = ({id, title, content, category, username, time, profilePic}) => {
     const yearMonth = time.split("-") // year, month
     const day = yearMonth[2].split("T") // day
     const timeVal = day[1].split(":") // hour, minute

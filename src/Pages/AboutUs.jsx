@@ -36,7 +36,7 @@ const AboutUs = () => {
         <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -500))}>
           <StDiv>
           <img style={{width:'100px'}} src={Pic1} alt="" />
-          <p style={{ fontSize: "40px", marginBottom:'5px' }}>Spring Professor 📚</p>
+          <p style={{ fontSize: "40px", marginBottom:'5px' }}>교수님 📚</p>
           <p style={{ fontSize: "40px" }}>서 만 원 님 ✨</p>
           </StDiv>
         </Animator>
@@ -101,8 +101,8 @@ const AboutUs = () => {
         <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -500))}>
           <StDiv>
           <p style={{ fontSize: "40px", marginBottom:'20px' }}> 유정님의 한마디 </p>
-          <p style={{ fontSize: "40px", marginBottom:'20px' }}>  진짜 이름난 실력자들과 숨은실력자들과 </p>
-          <p style={{ fontSize: "40px", marginBottom:'20px' }}>팀을꾸리니까 한주동안 너무 편한거 같아요.</p>
+          <p style={{ fontSize: "40px", marginBottom:'20px' }}>실력파 팀원들 덕분에 멋진 프로젝트가 완성된 것 같아요!  </p>
+          <p style={{ fontSize: "40px", marginBottom:'20px' }}>같이해서 너무 든든합니다. 끝까지 파이팅!!.</p>
           </StDiv>
         </Animator>
     </ScrollPage>

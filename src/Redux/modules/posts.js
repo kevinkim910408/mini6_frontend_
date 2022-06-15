@@ -123,12 +123,13 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
     }
 }
 
-export const __donePost = (payload, id) => async (dispatch, getState) =>{
-    console.log(payload)
+export const __donePost = ({id}) => async (dispatch, getState) =>{
+    console.log(id)
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`/posts/${Number(id)}`, payload );
-        dispatch(donePost(request.data))
+        const request = await api.patch(`/api/articles/${id}/done`);
+        console.log(request)
+        // dispatch(donePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -155,6 +156,8 @@ const postReducer = (state = initialState, {type, payload}) =>{
                 return value.articleId !== Number(payload);
             });
             return { ...state, list: [...newDeletedPost] };
+        case DONE_POST:
+            return {...state };
         case GET_POST_REQUEST:
             return {...state, loading: payload }
         case GET_POST_ERROR:
