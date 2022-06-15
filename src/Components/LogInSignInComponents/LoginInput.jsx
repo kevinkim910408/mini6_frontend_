@@ -21,11 +21,11 @@ const LoginInput = () => {
           dispatch(userActions.loginDB(username, password));
           
         }catch(error){
+          navigate("/login");
           window.alert("아이디 또는 비밀번호를 확인해주세요.");
           console.log("Login Error", error);
-          navigate("/login");
         }finally{
-          alert("환영합니다!")
+          alert("......")
         }
         navigate("/");
     };
@@ -36,7 +36,7 @@ const LoginInput = () => {
 
   return (
     <>
-        <form action="" onSubmit={loginDB}>
+        <form action="/" onSubmit={loginDB}>
           <Form>
             <StInputList>
               <StHeader to={'/'}>
