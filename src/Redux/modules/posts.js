@@ -8,6 +8,9 @@ const UPDATE_POST = 'post/UPDATE_POST'
 const DELETE_POST = 'post/DELETE_POST'
 const DONE_POST = 'post/DONE_POST'
 
+const LOAD_SOLVED = 'post/LOAD_SOLVED'
+const LOAD_UNSOLVED = 'post/LOAD_UNSOLVED'
+
 const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
 const GET_POST_ERROR = 'post/GET_POST_ERROR'
 
@@ -17,6 +20,8 @@ const addPost = (payload) => ({type: ADD_POST, payload})
 const updatePost = (payload) => ({type: UPDATE_POST, payload})
 const deletePost = (payload) => ({type: DELETE_POST, payload})
 const donePost = (payload) => ({type: DONE_POST, payload})
+const loadSolved = (payload) => ({type: LOAD_SOLVED, payload})
+const loadUnsolved = (payload) => ({type: LOAD_UNSOLVED, payload})
 
 const getPostRequest = (payload) => ({type: GET_POST_REQUEST, payload})
 const getPostError = (payload) => ({type: GET_POST_ERROR, payload})
@@ -49,6 +54,41 @@ export const __loadPosts = () => async(dispatch, getState) => {
     }
 }
 
+export const __loadSolved = () => async(dispatch, getState) => {
+    const myToken = getCookie("Authorization");
+    dispatch(getPostRequest(true))
+    try{
+        const response = await api.get(`/api/articles/solved`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          })
+          dispatch(loadSolved(response.data));
+    }catch(error){
+        dispatch(getPostError(error))
+    }finally{
+        dispatch(getPostRequest(false))
+    }
+}
+
+export const __loadUnsolved = () => async(dispatch, getState) => {
+    const myToken = getCookie("Authorization");
+    dispatch(getPostRequest(true))
+    try{
+        const response = await api.get(`/api/articles/unsolved`,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          })
+          dispatch(loadUnsolved(response.data));
+    }catch(error){
+        dispatch(getPostError(error))
+    }finally{
+        dispatch(getPostRequest(false))
+    }
+}
+
+
 export const __loadCategories = (payload) => async(dispatch, getState) => {
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
@@ -65,6 +105,7 @@ export const __loadCategories = (payload) => async(dispatch, getState) => {
         dispatch(getPostRequest(false))
     }
 }
+
 
 export const __addPost = (payload) => async (dispatch, getState) =>{
     const myToken = getCookie("Authorization");
@@ -145,6 +186,10 @@ const postReducer = (state = initialState, {type, payload}) =>{
         case LOAD_POST:
             return{ ...state, list: payload}
         case LOAD_CATEGORY:
+            return{ ...state, list: payload}
+        case LOAD_SOLVED:
+            return{ ...state, list: payload}
+        case LOAD_UNSOLVED:
             return{ ...state, list: payload}
         case ADD_POST:
             return {...state, list: [...state.list, payload]}

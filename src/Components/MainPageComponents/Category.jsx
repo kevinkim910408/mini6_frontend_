@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import { __loadCategories, __loadPosts } from '../../Redux/modules/posts';
+import { __loadCategories, __loadPosts, __loadSolved, __loadUnsolved } from '../../Redux/modules/posts';
 import { useDispatch} from 'react-redux';
 import flex from '../Common/flex';
 import { useNavigate } from 'react-router-dom';
 
-const Category = ({text, icon}) => {
+const Category = ({text, icon, done}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -14,6 +14,11 @@ const Category = ({text, icon}) => {
         dispatch(__loadCategories({text}));
         if(text === "ALL")
             dispatch(__loadPosts());
+        if(done){
+            dispatch(__loadSolved());
+        }
+        if(done === false)
+            dispatch(__loadUnsolved());
     }
         
     return (
