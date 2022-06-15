@@ -39,9 +39,12 @@ const yearMonth = data.createdAt.split("-") // year, month
 const day = yearMonth[2].split("T") // day
 const timeVal = day[1].split(":") // hour, minute
 
-const onDeleteHandler = () => {
-  
+const onDeleteHandler = (e) => {
+  console.log(e.target.value);
+  console.log(comment)
 }
+
+console.log(comment)
 
 const Comments = comment.map((value, index) => {
   return (
@@ -56,7 +59,7 @@ const Comments = comment.map((value, index) => {
           <StUpdatebutton>
             <StUpdateImg src={Pencil} alt="update" />
           </StUpdatebutton>
-          <StUpdatebutton onClick={onDeleteHandler}>
+          <StUpdatebutton onClick={(e)=>onDeleteHandler(e)}>
             <StUpdateImg src={Delete} alt="Delete" />
           </StUpdatebutton>
         </StFlexEnd>
