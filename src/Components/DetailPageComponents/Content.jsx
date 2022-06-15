@@ -4,10 +4,11 @@ import {
   faPenToSquare,
   faTrashCan,
   faCircleCheck,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { __deletePost, __donePost } from "../../Redux/modules/posts";
+import { __deletePost, __donePost, __addLike } from "../../Redux/modules/posts";
 import styled from "styled-components";
 import flex from "../Common/flex";
 import profile_1 from "../../Public/Image/profile_profile1.png";
@@ -15,8 +16,10 @@ const Content = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { list } = useSelector((state) => state.postReducer);
+  const { likes } = useSelector((state) => state.postReducer);
   const { id } = useParams(); // 10
   const [done, setDone] = useState(false);
+  const [like, setLike] = useState();
 
   const data = list.find((value) => {
     return value.articleId === +id;
@@ -29,8 +32,8 @@ const Content = () => {
       return "notDone";
     }
   };
+
   const onDoneHandler = () => {
-    // setDone((value) => !value);
     dispatch(__donePost({ id }));
   };
 
@@ -43,9 +46,22 @@ const Content = () => {
     navigate("/");
   };
 
+  const generateIdLike = () => {  
+    if (like === 0) {
+      return "noLike";
+    } else {
+      return "like";
+    }
+  };
+
+  const onLikeHandler = () => {
+    dispatch(__addLike({id: data.articleId}))
+  }
+
   useEffect(()=>{
     setDone(data.done)
-  },[data.done])
+    setLike(likes)
+  },[data.done, likes])
 
   return (
     <StContent>
@@ -80,12 +96,21 @@ const Content = () => {
               onDeleteHandler(id);
             }}
           />
-          <button onClick={onDoneHandler} style={{ border: "none" }}>
+         <StButton onClick={onLikeHandler} >
+            <FontAwesomeIcon
+              className="icon"
+              icon={faHeart}
+              id={generateIdLike()}
+            />
+            {like}
+          </StButton>
+
+          <button onClick={onDoneHandler} style={{ border: "none" }} >
             <FontAwesomeIcon
               className="icon"
               icon={faCircleCheck}
               done={done}
-              id={generateIdName()} // 상태값에따라서 id값 변경, toggle -> 클래스 이미 쓰고있어서 id로 했어요
+              id={generateIdName()}
             />
           </button>
         </div>
@@ -129,6 +154,12 @@ const StContent = styled.div`
     cursor: pointer;
     color: var(--Button-blue);
   }
+  #noLike{
+    color: #000;
+  }
+  #like{
+    color: red;
+  }
 `;
 
 const StHeader = styled.div`
@@ -167,4 +198,10 @@ const StBody = styled.div`
   width: 100%;
   color: #4a4d53;
   white-space: pre-wrap;
+`;
+
+const StButton = styled.button`
+  margin-right: 30px;
+  border:none;
+
 `;

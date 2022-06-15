@@ -10,6 +10,7 @@ const DONE_POST = 'post/DONE_POST'
 
 const LOAD_SOLVED = 'post/LOAD_SOLVED'
 const LOAD_UNSOLVED = 'post/LOAD_UNSOLVED'
+const ADD_LIKE = 'post/ADD_LIKE'
 
 const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
 const GET_POST_ERROR = 'post/GET_POST_ERROR'
@@ -22,6 +23,7 @@ const deletePost = (payload) => ({type: DELETE_POST, payload})
 const donePost = (payload) => ({type: DONE_POST, payload})
 const loadSolved = (payload) => ({type: LOAD_SOLVED, payload})
 const loadUnsolved = (payload) => ({type: LOAD_UNSOLVED, payload})
+const addLike = (payload) => ({type: ADD_LIKE, payload})
 
 const getPostRequest = (payload) => ({type: GET_POST_REQUEST, payload})
 const getPostError = (payload) => ({type: GET_POST_ERROR, payload})
@@ -35,6 +37,7 @@ const initialState = {
     },
     loading: false,
     error: null,
+    likes:0,
 }
 
 export const __loadPosts = () => async(dispatch, getState) => {
@@ -181,7 +184,25 @@ export const __donePost = ({id}) => async (dispatch, getState) =>{
     }
 }
 
+export const __addLike = ({id}) => async (dispatch, getState) =>{
+    const myToken = getCookie("Authorization");
+    dispatch(getPostRequest(true))
+    try{
+        const request = await api.put(`/api/articles/${id}/like`, { } ,{
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+        dispatch(addLike(request.data))
+    }catch(error){
+        alert(error)
+    }finally{
+        dispatch(getPostRequest(false))
+    }
+}
+
 const postReducer = (state = initialState, {type, payload}) =>{
+    console.log(payload)
     switch(type){
         case LOAD_POST:
             return{ ...state, list: payload}
@@ -191,6 +212,8 @@ const postReducer = (state = initialState, {type, payload}) =>{
             return{ ...state, list: payload}
         case LOAD_UNSOLVED:
             return{ ...state, list: payload}
+        case ADD_LIKE:
+            return{ ...state, likes: payload}
         case ADD_POST:
             return {...state, list: [...state.list, payload]}
         case UPDATE_POST:
