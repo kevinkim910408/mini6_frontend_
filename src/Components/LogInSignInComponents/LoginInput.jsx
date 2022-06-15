@@ -23,8 +23,9 @@ const LoginInput = () => {
         }catch(error){
           window.alert("아이디 또는 비밀번호를 확인해주세요.");
           console.log("Login Error", error);
+          navigate("/login");
         }finally{
-          
+          alert("환영합니다!")
         }
         navigate("/");
     };
