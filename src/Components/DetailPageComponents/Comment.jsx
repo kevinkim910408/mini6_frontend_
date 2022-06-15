@@ -13,12 +13,9 @@ const Comment = () => {
 const [inputValue, setInputValue] = useState();
 const dispatch = useDispatch();
 
-
 const { list } = useSelector((state) => state.postReducer);
 const { comment } = useSelector((state) => state.commentReducer);
 const { id } = useParams(); // 10
-
-
 
 const data = list.find((value) => {
   return value.articleId === +id;
@@ -42,6 +39,10 @@ const yearMonth = data.createdAt.split("-") // year, month
 const day = yearMonth[2].split("T") // day
 const timeVal = day[1].split(":") // hour, minute
 
+const onDeleteHandler = () => {
+  
+}
+
 const Comments = comment.map((value, index) => {
   return (
     <StTextWrap key={index}>
@@ -55,7 +56,7 @@ const Comments = comment.map((value, index) => {
           <StUpdatebutton>
             <StUpdateImg src={Pencil} alt="update" />
           </StUpdatebutton>
-          <StUpdatebutton>
+          <StUpdatebutton onClick={onDeleteHandler}>
             <StUpdateImg src={Delete} alt="Delete" />
           </StUpdatebutton>
         </StFlexEnd>
