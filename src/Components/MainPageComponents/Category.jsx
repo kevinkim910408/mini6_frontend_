@@ -12,10 +12,9 @@ const Category = ({text, icon}) => {
     const onClickHanlder = () => {
         navigate('/')
         dispatch(__loadCategories({text}));
+        if(text === "ALL")
+            dispatch(__loadPosts());
     }
-
-    if(text === "ALL")
-        dispatch(__loadPosts());
         
     return (
     <>
