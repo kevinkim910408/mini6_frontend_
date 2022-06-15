@@ -17,9 +17,16 @@ const LoginInput = () => {
             window.alert("아이디와 비밀번호를 모두 입력해주세요!");
             return;
         }
-     dispatch(userActions.loginDB(username, password));
-     alert("Dev Box에 오신걸 환영합니다!")
-     navigate("/");
+        try{
+          dispatch(userActions.loginDB(username, password));
+          
+        }catch(error){
+          window.alert("아이디 또는 비밀번호를 확인해주세요.");
+          console.log("Login Error", error);
+        }finally{
+          
+        }
+        navigate("/");
     };
 
     useEffect(()=>{
