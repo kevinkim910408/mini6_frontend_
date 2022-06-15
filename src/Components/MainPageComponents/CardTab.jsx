@@ -14,6 +14,7 @@ const CardTab = () => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
+  
   const lists = list.slice(offset, offset + limit).map((value, index)=> {
     return  <Card 
                 key={index}
@@ -23,6 +24,7 @@ const CardTab = () => {
                 content={value.content}
                 category={value.category}
                 done={value.done}
+                profilePic={value.profilePic}
                 username={value.username}
               />
   })

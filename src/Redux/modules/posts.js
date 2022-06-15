@@ -36,7 +36,7 @@ export const __loadPosts = () => async(dispatch, getState) => {
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const response = await api.get(`api/articles`,{
+        const response = await api.get(`/api/articles`,{
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
@@ -70,7 +70,7 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const data = await api.post('api/article', {
+        const data = await api.post('/api/article', {
             title: payload.title,
             category: payload.category,
             content: payload.content,
@@ -92,7 +92,7 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`api/articles/${index}`, payload ,{
+        const request = await api.put(`/api/articles/${index}`, payload ,{
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
@@ -109,7 +109,7 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const msg = await api.delete(`api/articles/${payload}`,{
+        const msg = await api.delete(`/api/articles/${payload}`,{
             headers: {
               'Authorization': `Bearer ${myToken}`,
             }
@@ -123,12 +123,18 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
     }
 }
 
-export const __donePost = (payload, id) => async (dispatch, getState) =>{
-    console.log(payload)
+export const __donePost = ({id}) => async (dispatch, getState) =>{
+    console.log(id)
+    const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
-        const request = await api.put(`/posts/${Number(id)}`, payload );
-        dispatch(donePost(request.data))
+        const data = await api.patch(`/api/articles/${id}/done`, {
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+        console.log(data)
+        // dispatch(donePost(request.data))
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -155,6 +161,8 @@ const postReducer = (state = initialState, {type, payload}) =>{
                 return value.articleId !== Number(payload);
             });
             return { ...state, list: [...newDeletedPost] };
+        case DONE_POST:
+            return {...state };
         case GET_POST_REQUEST:
             return {...state, loading: payload }
         case GET_POST_ERROR:
