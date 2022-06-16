@@ -127,6 +127,7 @@ export const __addPost = (payload) => async (dispatch, getState) =>{
             }
           });
           dispatch(addPost(data.data))
+          alert('추가가 완료되었습니다.')
     }catch(error){
         dispatch(getPostError(error))
     }finally{
@@ -144,6 +145,7 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
             }
           } );
         dispatch(updatePost(request.data))
+        alert('수정된 완료되었습니다.')
     }catch(error){
         alert("다른 사람의 질문은 수정 할 수 없습니다")
     }finally{
@@ -179,6 +181,7 @@ export const __donePost = ({id}) => async (dispatch, getState) =>{
             }
           });
         dispatch(donePost(data.data))
+        alert('해당 질문은 완료되었습니다.')
     }catch(error){
         alert("다른 사람의 질문은 완료 할 수 없습니다")
     }finally{

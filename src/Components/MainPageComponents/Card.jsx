@@ -8,6 +8,7 @@ const Card = ({id, title, content, category, username, time, profilePic}) => {
     const yearMonth = time.split("-") // year, month
     const day = yearMonth[2].split("T") // day
     const timeVal = day[1].split(":") // hour, minute
+    
     const userImage = useProfile(profilePic);
     return (
         <StLink to={`/detail/${id}`}>
@@ -18,7 +19,7 @@ const Card = ({id, title, content, category, username, time, profilePic}) => {
                         <span style={{fontSize:'0.8rem', textAlign:'center'}}>ID: {username}</span>
                     </StDiv>
                     <StTextContents>
-                        <span style={{fontSize:'1.3rem', fontWeight:'700'}}>{category}</span> <span>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분 </span>
+                        <span style={{fontSize:'1.3rem', fontWeight:'700'}}>{category}</span> <span>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[1]}분 </span>
                         <StDivBos>{title}</StDivBos>
                         <StDivBos>{content}</StDivBos>
                     </StTextContents>

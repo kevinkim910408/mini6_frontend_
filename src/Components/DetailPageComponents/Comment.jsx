@@ -3,24 +3,27 @@ import styled from "styled-components";
 import profile_1 from "../../Public/Image/profile_profile1.png";
 import Delete from "../../Public/Image/Delete.png";
 import Pencil from "../../Public/Image/Pencil.png";
-import { __addComment, __loadComment } from "../../Redux/modules/comment";
+import { __addComment, __loadComment, __deleteComment } from "../../Redux/modules/comment";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import useProfile from '../../Components/CustomHooks/useProfile'
+import { getCookie } from "../../Shared/Cookie";
 
 const Comment = () => {
 
 const [inputValue, setInputValue] = useState();
 const dispatch = useDispatch();
+const navigate = useNavigate();
 
 const { list } = useSelector((state) => state.postReducer);
 const { comment } = useSelector((state) => state.commentReducer);
 const { id } = useParams(); // 10
+const userNameCookie = getCookie('username')
 
 const data = list.find((value) => {
   return value.articleId === +id;
 });
-const userImage = useProfile(data.profilePic);
+
 
 const inputRef = useRef(null)
 const onInputHandler = () => {
@@ -29,36 +32,41 @@ const onInputHandler = () => {
 
 const onClickEventHandler = () => {
   dispatch(__addComment({inputValue}, data.articleId))
+  inputRef.current.value="";
+  navigate('/')
 }
 
 useEffect(()=>{
   dispatch(__loadComment(data.articleId))
 },[dispatch, data.articleId])
 
-const yearMonth = data.createdAt.split("-") // year, month
-const day = yearMonth[2].split("T") // day
-const timeVal = day[1].split(":") // hour, minute
-
-const onDeleteHandler = (e) => {
-  console.log(e.target.value);
-  console.log(comment)
+const onDeleteHandler = (id) => {
+  dispatch(__deleteComment(id));
 }
 
+const userImage = useProfile(data.profilePic);
+
 const Comments = comment.map((value, index) => {
+  
   return (
     <StTextWrap key={index}>
       <StFlexBetween>
         <StFlex>
           <StProfileImg src={userImage} alt="profileimg" style={{borderRadius:'100%'}}/>
-          <span>무명의 현자</span>
+          <span>{value.username}</span>
         </StFlex>
         <StFlexEnd>
-          {/* <StUpdatebutton>
-            <StUpdateImg src={Pencil} alt="update" />
-          </StUpdatebutton>
-          <StUpdatebutton onClick={(e)=>onDeleteHandler(e)}>
-            <StUpdateImg src={Delete} alt="Delete" />
-          </StUpdatebutton> */}
+        {
+          userNameCookie === value.username ?
+          <>
+          <StUpdatebutton>
+              <StUpdateImg src={Pencil} alt="update" />
+            </StUpdatebutton>
+            <StUpdatebutton onClick={()=>onDeleteHandler(value.commentId)}>
+              <StUpdateImg src={Delete} alt="Delete" />
+            </StUpdatebutton>
+          </> : <></> 
+          }
         </StFlexEnd>
       </StFlexBetween>
       <StText>
@@ -73,8 +81,8 @@ const Comments = comment.map((value, index) => {
       <StCommentList>{Comments}</StCommentList>
       <StInputWrap>
         <StFlex>
-          <StProfileImg src={profile_1} alt="profileimg" />
-          <span>username</span>
+          <StProfileImg src={profile_1} style={{borderRadius:'100%'}} alt="profileimg" />
+          <span>{userNameCookie}</span>
         </StFlex>
         <StInput type="text" ref={inputRef} onChange={()=>{onInputHandler()}}/>
         <Stbutton onClick={onClickEventHandler}>Send</Stbutton>
@@ -139,6 +147,8 @@ const StInput = styled.input`
   padding: 5px 20px;
 `;
 const StText = styled.p`
+  /* display: flex; */
+  /* flex-direction: column-reverse; */
   margin-top: 10px;
 `;
 const StUpdatebutton = styled.button`

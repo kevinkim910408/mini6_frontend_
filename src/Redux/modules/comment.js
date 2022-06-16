@@ -7,15 +7,22 @@ const ADD_COMMENT = "comment/ADD_COMMENT";
 const UPDATE_COMMENT = "comment/UPDATE_COMMENT";
 const DELETE_COMMENT = "comment/DELETE_COMMENT";
 
+const GET_POST_REQUEST = 'comment/GET_POST_REQUEST'
+const GET_POST_ERROR = 'comment/GET_POST_ERROR'
+
 //action함수
 const loadComment = (payload) => ({ type: LOAD_COMMENT, payload });
 const addComment = (payload) => ({ type: ADD_COMMENT, payload });
 const updateComment = (payload) => ({ type: UPDATE_COMMENT, payload });
 const deleteComment = (payload) => ({ type: DELETE_COMMENT, payload });
+const getCommentRequest = (payload) => ({type: GET_POST_REQUEST, payload})
+const getCommentError = (payload) => ({type: GET_POST_ERROR, payload})
 
 //초기값
 const initialState = {
   comment: [],
+  loading: false,
+  error: null,
 };
 
 //thunk
@@ -44,6 +51,7 @@ export const __addComment =
       }
     );
     dispatch(addComment(data.data));
+    alert("댓글이 등록되었습니다.")
   };
 
 export const __updateComment =
@@ -67,13 +75,17 @@ export const __updateComment =
 export const __deleteComment =
   (commentId) => async (dispatch, getState) => {
     const myToken = getCookie("Authorization");
+    try{
     const msg = await api.delete(`/api/articles/comments/${commentId}`, {
       headers: {
         Authorization: `Bearer ${myToken}`,
       },
     });
-    alert(msg.data);
-    dispatch(deleteComment(commentId));
+      alert(msg.data);
+      dispatch(deleteComment(commentId));
+    }catch(error){
+      // alert("다른사람 댓글은 지울 수 없습니다.")
+    }
   };
 
 //reducer

@@ -49,7 +49,7 @@ const StPagination = styled.div`
   ${flex({direction:'column'})}
   width: 3%;
   height: 100%;
-  border-left: 1px solid #d0dcfd;
+  border-right: 1px solid #d0dcfd;
   @media (max-width: 800px) {
         width: 10%;
     }
