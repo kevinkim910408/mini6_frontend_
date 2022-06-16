@@ -209,6 +209,7 @@ export const __toggleFav = ({id}) => async (dispatch, getState) =>{
 }
 
 export const __addLike = ({id}) => async (dispatch, getState) =>{
+    console.log(id)
     const myToken = getCookie("Authorization");
     dispatch(getPostRequest(true))
     try{
@@ -217,7 +218,8 @@ export const __addLike = ({id}) => async (dispatch, getState) =>{
               'Authorization': `Bearer ${myToken}`,
             }
           });
-        dispatch(addLike(request.data))
+          console.log(request)
+        // dispatch(addLike(request.data))
     }catch(error){
         alert(error)
     }finally{

@@ -26,7 +26,7 @@ const Side = () => {
         </StPostButton>
         <div>
             <Category text="ALL" icon={ALL}/>
-            <Category text="FAVOURITE" icon={Star}/>
+            {/* <Category text="FAVOURITE" icon={Star}/> */}
             <Category text="SOLVED" icon={SOLVED} done={true}/>
             <Category text="UNSOLVED" icon={Unsolved} done={false}/>
             <Category text="SPRING" icon={Spring}/>

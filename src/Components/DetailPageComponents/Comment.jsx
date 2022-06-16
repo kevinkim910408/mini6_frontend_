@@ -7,6 +7,7 @@ import { __addComment, __loadComment, __deleteComment, __updateComment } from ".
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useParams, useNavigate } from 'react-router-dom'
 import { getCookie } from "../../Shared/Cookie";
+import Pic1 from '../../Public/Image/profile_profile1.png'
 
 const Comment = () => {
 
@@ -47,7 +48,6 @@ const Comment = () => {
   const onClickEventHandler = () => {
     dispatch(__addComment({inputValue}, data.articleId))
     inputRef.current.value="";
-    navigate('/')
   }
 
   useEffect(()=>{
@@ -59,12 +59,10 @@ const Comment = () => {
   }
 
   const Comments = comment.map((value, index) => {
-    
     return (
       <StTextWrap key={index}>
         <StFlexBetween>
           <StFlex>
-            <StProfileImg src={value.profilePic} alt="profileimg" style={{borderRadius:'100%'}}/>
             <span>{value.username}</span>
           </StFlex>
           <StFlexEnd>

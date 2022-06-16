@@ -65,8 +65,8 @@ const Content = () => {
   }
 
   const onFavHandler = () => {
-    dispatch(__toggleFav({ id }))
-    // setFav(value => !value)
+    // dispatch(__toggleFav({ id }))
+    setFav(value => !value)
   }
   
   const onUpdateHandler = () => {
@@ -88,7 +88,7 @@ const Content = () => {
       <StHeader>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <StProfileImg
-            style={{ width: "30px" }}
+            style={{ width: "30px", borderRadius:'100%' }}
             src={profile_1}
             alt="ProfileImg"
           />
