@@ -86,7 +86,7 @@ const Content = () => {
   return (
     <StContent>
       <StHeader>
-        <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "15px", width:'100%' }}>
           <StProfileImg
             style={{ width: "30px", borderRadius:'100%' }}
             src={profile_1}

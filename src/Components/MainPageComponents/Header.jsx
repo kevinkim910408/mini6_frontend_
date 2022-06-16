@@ -17,6 +17,7 @@ const Header = () => {
     const logOutHandler = () => {
         deleteAllCookies();
         setIsLogin(false);
+        alert('로그아웃에 성공하였습니다.')
     }
     
   return (
