@@ -44,24 +44,21 @@ const onDeleteHandler = (e) => {
   console.log(comment)
 }
 
-console.log(comment)
-
 const Comments = comment.map((value, index) => {
   return (
     <StTextWrap key={index}>
       <StFlexBetween>
         <StFlex>
           <StProfileImg src={userImage} alt="profileimg" style={{borderRadius:'100%'}}/>
-          <span>{data.username}</span>
-          <p>{yearMonth[0]}/{yearMonth[1]}/{day[0]} {timeVal[0]}시{timeVal[0]}분</p>
+          <span>무명의 현자</span>
         </StFlex>
         <StFlexEnd>
-          <StUpdatebutton>
+          {/* <StUpdatebutton>
             <StUpdateImg src={Pencil} alt="update" />
           </StUpdatebutton>
           <StUpdatebutton onClick={(e)=>onDeleteHandler(e)}>
             <StUpdateImg src={Delete} alt="Delete" />
-          </StUpdatebutton>
+          </StUpdatebutton> */}
         </StFlexEnd>
       </StFlexBetween>
       <StText>

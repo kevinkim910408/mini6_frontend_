@@ -20,7 +20,7 @@ const Content = () => {
   const { likes } = useSelector((state) => state.postReducer);
   const { id } = useParams(); // 10
   const [done, setDone] = useState(false);
-  const [like, setLike] = useState();
+  const [like, setLike] = useState(likes);
   const [fav, setFav] = useState(false);
 
   const data = list.find((value) => {
