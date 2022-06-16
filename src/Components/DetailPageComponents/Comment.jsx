@@ -3,92 +3,116 @@ import styled from "styled-components";
 import profile_1 from "../../Public/Image/profile_profile1.png";
 import Delete from "../../Public/Image/Delete.png";
 import Pencil from "../../Public/Image/Pencil.png";
-import { __addComment, __loadComment, __deleteComment } from "../../Redux/modules/comment";
+import { __addComment, __loadComment, __deleteComment, __updateComment } from "../../Redux/modules/comment";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useParams, useNavigate } from 'react-router-dom'
-import useProfile from '../../Components/CustomHooks/useProfile'
 import { getCookie } from "../../Shared/Cookie";
 
 const Comment = () => {
 
-const [inputValue, setInputValue] = useState();
-const dispatch = useDispatch();
-const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const { list } = useSelector((state) => state.postReducer);
-const { comment } = useSelector((state) => state.commentReducer);
-const { id } = useParams(); // 10
-const userNameCookie = getCookie('username')
+  const { list } = useSelector((state) => state.postReducer);
+  const { comment } = useSelector((state) => state.commentReducer);
+  const { id } = useParams(); // 10
+  const userNameCookie = getCookie('username')
 
-const data = list.find((value) => {
-  return value.articleId === +id;
-});
+  // 업데이트 버튼 누르면 아래 toggle창 생기게 해주는 state
+  const [edit, setEdit] = useState(false);
+  const [updateId, setUpdataId] = useState(null);
+  const [updateComment, setUpdateComment] = useState("");
 
-
-const inputRef = useRef(null)
-const onInputHandler = () => {
-  setInputValue(inputRef.current.value);
-}
-
-const onClickEventHandler = () => {
-  dispatch(__addComment({inputValue}, data.articleId))
-  inputRef.current.value="";
-  navigate('/')
-}
-
-useEffect(()=>{
-  dispatch(__loadComment(data.articleId))
-},[dispatch, data.articleId])
-
-const onDeleteHandler = (id) => {
-  dispatch(__deleteComment(id));
-}
-
-const userImage = useProfile(data.profilePic);
-
-const Comments = comment.map((value, index) => {
+    // 수정버튼 toggle
+    const updateModal = (id) =>{
+      setEdit(true)
+      setUpdataId(id)
+    }
   
-  return (
-    <StTextWrap key={index}>
-      <StFlexBetween>
-        <StFlex>
-          <StProfileImg src={userImage} alt="profileimg" style={{borderRadius:'100%'}}/>
-          <span>{value.username}</span>
-        </StFlex>
-        <StFlexEnd>
-        {
-          userNameCookie === value.username ?
-          <>
-          <StUpdatebutton>
-              <StUpdateImg src={Pencil} alt="update" />
-            </StUpdatebutton>
-            <StUpdatebutton onClick={()=>onDeleteHandler(value.commentId)}>
-              <StUpdateImg src={Delete} alt="Delete" />
-            </StUpdatebutton>
-          </> : <></> 
-          }
-        </StFlexEnd>
-      </StFlexBetween>
-      <StText>
-       {value.comment}
-      </StText>
-    </StTextWrap>
-  );
-});
+    const updatePostHandler = (updatedData) => {
+      dispatch(__updateComment(updatedData))
+    }
 
-  return (
-    <StContainer>
-      <StCommentList>{Comments}</StCommentList>
-      <StInputWrap>
-        <StFlex>
-          <StProfileImg src={profile_1} style={{borderRadius:'100%'}} alt="profileimg" />
-          <span>{userNameCookie}</span>
-        </StFlex>
-        <StInput type="text" ref={inputRef} onChange={()=>{onInputHandler()}}/>
-        <Stbutton onClick={onClickEventHandler}>Send</Stbutton>
-      </StInputWrap>
-    </StContainer>
-  );
+  const data = list.find((value) => {
+    return value.articleId === +id;
+  });
+
+  const inputRef = useRef(null)
+  const onInputHandler = () => {
+    setInputValue(inputRef.current.value);
+  }
+
+  const onClickEventHandler = () => {
+    dispatch(__addComment({inputValue}, data.articleId))
+    inputRef.current.value="";
+    navigate('/')
+  }
+
+  useEffect(()=>{
+    dispatch(__loadComment(data.articleId))
+  },[dispatch, data.articleId])
+
+  const onDeleteHandler = (id) => {
+    dispatch(__deleteComment(id));
+  }
+
+  const Comments = comment.map((value, index) => {
+    
+    return (
+      <StTextWrap key={index}>
+        <StFlexBetween>
+          <StFlex>
+            <StProfileImg src={value.profilePic} alt="profileimg" style={{borderRadius:'100%'}}/>
+            <span>{value.username}</span>
+          </StFlex>
+          <StFlexEnd>
+          {
+            userNameCookie === value.username ?
+            <>
+            <StUpdatebutton onClick={()=>updateModal(value.commentId)}>
+                <StUpdateImg src={Pencil} alt="update" />
+              </StUpdatebutton>
+              <StUpdatebutton onClick={()=>onDeleteHandler(value.commentId)}>
+                <StUpdateImg src={Delete} alt="Delete" />
+              </StUpdatebutton>
+            </> : <></> 
+            }
+          </StFlexEnd>
+        </StFlexBetween>
+        {
+          edit && updateId === value.commentId &&(
+              <>
+                <input
+                  type="text" 
+                  placeholder="설명은 여기에 써요"
+                  style={{width:'400px'}}
+                  onChange={(e)=>setUpdateComment(e.target.value)}
+                />
+                <button onClick={()=>updatePostHandler({comment: updateComment, commentId: value.commentId})}>수정하기</button>
+              </>
+            )
+          }
+        <StText>
+        {value.comment}
+        </StText>
+      </StTextWrap>
+    );
+  });
+
+    return (
+      <StContainer>
+        <StCommentList>{Comments}</StCommentList>
+        <StInputWrap>
+          <StFlex>
+            <StProfileImg src={profile_1} style={{borderRadius:'100%'}} alt="profileimg" />
+            <span>{userNameCookie}</span>
+          </StFlex>
+          <StInput type="text" ref={inputRef} onChange={()=>{onInputHandler()}}/>
+          <Stbutton onClick={onClickEventHandler}>Send</Stbutton>
+        </StInputWrap>
+      </StContainer>
+    );
 };
 
 export default Comment;
