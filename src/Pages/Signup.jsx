@@ -30,11 +30,6 @@ const Signup = () => {
   },[])
 
 
-  if (password && passwordcheck && password === passwordcheck) {
-    checkref.current.innerText = "✔️";
-  } else if (password !== passwordcheck) {
-    checkref.current.innerText = "❌";
-  }
   const signUpDB = async () => {
     if (username === "" || password === "" || passwordcheck === "") {
       window.alert("아이디와 비밀번호를 모두 입력해주세요!");
@@ -68,17 +63,14 @@ const Signup = () => {
               required
               ref={focusRef}
             />
-            {idCheck(username) ? (
-              <p style={{ fontSize: "12px", color: "green" }}>
-                형식에 맞는 아이디입니다.
-              </p>
-            ) : null}
             {!idCheck(username) ? (
               <p style={{ fontSize: "12px", color: "red" }}>
                 {" "}
-                2~ 10자 한글, 영문, 숫자 가능, 특수문자 -_ 가능
+                숫자 그리고 영어를 모두 포함하여 4~15 사이로 만들어 주세요
               </p>
-            ) : null}
+            ) : <p style={{ fontSize: "12px", color: "green" }}>
+                Dev Box에 가입해 주셔서 감사합니다.
+              </p>}
             <StInput
               type="password"
               value={password || ""}
@@ -97,7 +89,7 @@ const Signup = () => {
             ) : null}
             {!passwordCheck(password) ? (
               <p style={{ fontSize: "12px", color: "red" }}>
-                6~20자 영문 숫자 필수, 특수문자 !@#$%^&* 가능
+               영어 숫자 그리고 특수문자를 모두 포함하여 4~20 사이로 만들어 주세요
               </p>
             ) : null}
             <StInput
@@ -111,19 +103,18 @@ const Signup = () => {
             />
             {/* ******************************************************************************************************************************* */}
 
-            {password !== passwordcheck && password?.length >= 1 ? (
-              <p style={{ fontSize: "12px", color: "red" }}>
-                비밀번호가 일치하지 않습니다.
-              </p>
-            ) : null}
-            {password === passwordcheck && password?.length > 5 ? (
+
+            {password === passwordcheck && password?.length > 3 ? (
               <p style={{ fontSize: "12px", color: "green" }}>
                 비밀번호가 일치합니다.
               </p>
-            ) : null}
+            ) : 
+            <p style={{ fontSize: "12px", color: "red" }}>
+            비밀번호가 일치하지 않거나 비어있습니다.
+          </p>}
           </StInputList>
-          
-          
+          <StDiv>
+          <p>원하는 이미지를 하나 골라주세요!</p>
           <StLabellIST>
             <StLabel htmlFor="profile1">
               <input
@@ -187,11 +178,17 @@ const Signup = () => {
               <img src={profile_6} />
             </StLabel>
           </StLabellIST>
+          </StDiv>
         </StFlex>
         <Stbtn>
+          <StFlexTwo >
           <StButton type="submit" variant="primary">
             가입하기
           </StButton>
+          <StLink to={'/login'} >
+            뒤로가기
+          </StLink>
+          </StFlexTwo>
         </Stbtn>
       </Form>
     </form>
@@ -206,11 +203,19 @@ const Form = styled.div`
   height: 100vh;
   font-family: 'Noto Sans KR', sans-serif;
 `;
+
 const StFlex = styled.div`
   ${flex({})}
   width: 100%;
   height: 80%;
 `;
+
+const StFlexTwo = styled.div`
+  ${flex({justify:'space-evenly'})}
+  width: 100%;
+  height: 80%;
+`;
+
 const StHeader = styled(Link)`
   ${flex({})}
   gap: 1rem;
@@ -248,7 +253,6 @@ const StButton = styled.button`
   border: 0;
   color: #fff;
   font-weight: bold;
-  margin: 0 auto;
   &:hover{
     background-color: var(--Button-blue);
   }
@@ -269,4 +273,31 @@ const StLabel = styled.label`
       -webkit-box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0); 
       box-shadow: inset -1px 3px 8px 5px #1F87FF, 2px 5px 16px 0px #0B325E, -2px -1px 21px 1px rgba(0,0,0,0);  
     }
+`;
+
+const StDiv = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & > p {
+    margin: 0 50px 30px 0;
+    font-size: 1.1rem;
+    color: gray;
+  };
+`;
+
+const StLink = styled(Link)`
+  background-color: var(--blue);
+  padding: 20px;
+  width: 20vw;
+  border: 0;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  &:hover{
+    background-color: var(--Button-blue);
+  }
 `;

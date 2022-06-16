@@ -11,6 +11,7 @@ const DONE_POST = 'post/DONE_POST'
 const LOAD_SOLVED = 'post/LOAD_SOLVED'
 const LOAD_UNSOLVED = 'post/LOAD_UNSOLVED'
 const ADD_LIKE = 'post/ADD_LIKE'
+const TOGGLE_FAV = 'post/TOGGLE_FAV'
 
 const GET_POST_REQUEST = 'post/GET_POST_REQUEST'
 const GET_POST_ERROR = 'post/GET_POST_ERROR'
@@ -24,6 +25,7 @@ const donePost = (payload) => ({type: DONE_POST, payload})
 const loadSolved = (payload) => ({type: LOAD_SOLVED, payload})
 const loadUnsolved = (payload) => ({type: LOAD_UNSOLVED, payload})
 const addLike = (payload) => ({type: ADD_LIKE, payload})
+const toggleFav = (payload) => ({type: TOGGLE_FAV, payload})
 
 const getPostRequest = (payload) => ({type: GET_POST_REQUEST, payload})
 const getPostError = (payload) => ({type: GET_POST_ERROR, payload})
@@ -143,7 +145,7 @@ export const __updatePost = (payload, index) => async (dispatch, getState) =>{
           } );
         dispatch(updatePost(request.data))
     }catch(error){
-        dispatch(getPostError(error))
+        alert("다른 사람의 질문은 수정 할 수 없습니다")
     }finally{
         dispatch(getPostRequest(false))
     }
@@ -161,7 +163,7 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
           alert(msg.data)
         dispatch(deletePost(payload));
     }catch(error){
-        dispatch(getPostError(error))
+        alert("다른 사람의 질문은 삭제 할 수 없습니다")
     }finally{
         dispatch(getPostRequest(false))
     }
@@ -177,6 +179,25 @@ export const __donePost = ({id}) => async (dispatch, getState) =>{
             }
           });
         dispatch(donePost(data.data))
+    }catch(error){
+        alert("다른 사람의 질문은 완료 할 수 없습니다")
+    }finally{
+        dispatch(getPostRequest(false))
+    }
+}
+
+export const __toggleFav = ({id}) => async (dispatch, getState) =>{
+    console.log(id);
+    const myToken = getCookie("Authorization");
+    dispatch(getPostRequest(true))
+    try{
+        const data = await api.put(`/api/articles/${id}/favorite`, { }, {
+            headers: {
+              'Authorization': `Bearer ${myToken}`,
+            }
+          });
+          console.log(data);
+        // dispatch(toggleFav(data.data))
     }catch(error){
         alert(error)
     }finally{
@@ -202,7 +223,6 @@ export const __addLike = ({id}) => async (dispatch, getState) =>{
 }
 
 const postReducer = (state = initialState, {type, payload}) =>{
-    console.log(payload)
     switch(type){
         case LOAD_POST:
             return{ ...state, list: payload}
