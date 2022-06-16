@@ -32,6 +32,7 @@ const Comment = () => {
   
     const updatePostHandler = (updatedData) => {
       dispatch(__updateComment(updatedData))
+      setEdit(false)
     }
 
   const data = list.find((value) => {
@@ -80,6 +81,9 @@ const Comment = () => {
             }
           </StFlexEnd>
         </StFlexBetween>
+        <StText>
+          {value.comment}
+        </StText>
         {
           edit && updateId === value.commentId &&(
               <>
@@ -93,9 +97,7 @@ const Comment = () => {
               </>
             )
           }
-        <StText>
-        {value.comment}
-        </StText>
+        
       </StTextWrap>
     );
   });
