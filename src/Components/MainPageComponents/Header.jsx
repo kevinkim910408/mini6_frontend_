@@ -27,7 +27,7 @@ const Header = () => {
         </StTitleLink>
         {isLogin ? 
         <div style={{display:'flex', justifyContent:'center',}}>
-            <img style={{width:'70px', borderRadius:'100%', marginRight:'2rem'}} src={userProfile} alt="" />
+            <img style={{width:'50px', height:'50px', borderRadius:'100%', marginRight:'1rem'}} src={userProfile} alt="" />
             <StLogInOutButton onClick={logOutHandler}>
                 <span>로그아웃</span>
             </StLogInOutButton>
