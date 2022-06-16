@@ -13,15 +13,19 @@ import { __deletePost, __donePost, __addLike, __toggleFav } from "../../Redux/mo
 import styled from "styled-components";
 import flex from "../Common/flex";
 import profile_1 from "../../Public/Image/profile_profile1.png";
+import { getCookie } from "../../Shared/Cookie";
+
 const Content = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { list } = useSelector((state) => state.postReducer);
   const { likes } = useSelector((state) => state.postReducer);
+  const { comment } = useSelector((state) => state.commentReducer);
   const { id } = useParams(); // 10
   const [done, setDone] = useState(false);
   const [like, setLike] = useState(likes);
   const [fav, setFav] = useState(false);
+  const userNameCookie = getCookie('username')
 
   const data = list.find((value) => {
     return value.articleId === +id;
@@ -65,7 +69,6 @@ const Content = () => {
     // setFav(value => !value)
   }
   
-
   const onUpdateHandler = () => {
     navigate(`/update/${data.articleId}`);
   };
@@ -75,13 +78,11 @@ const Content = () => {
     navigate("/");
   };
 
-
-
   useEffect(()=>{
     setDone(data.done)
     setLike(likes)
   },[data.done, likes])
-
+  
   return (
     <StContent>
       <StHeader>
@@ -101,20 +102,23 @@ const Content = () => {
             alignItems: "center",
           }}
         >
-          <FontAwesomeIcon
-            style={{ marginRight: "30px" }}
-            className="icon"
-            icon={faPenToSquare}
-            onClick={onUpdateHandler}
-          />
-          <FontAwesomeIcon
-            style={{ marginRight: "30px" }}
-            className="icon"
-            icon={faTrashCan}
-            onClick={() => {
-              onDeleteHandler(id);
-            }}
-          />
+
+          {
+            data.username === userNameCookie ?
+            <>
+              <FontAwesomeIcon style={{ marginRight: "30px" }} className="icon" icon={faPenToSquare}
+                onClick={onUpdateHandler} />
+              <FontAwesomeIcon style={{ marginRight: "30px" }} className="icon" icon={faTrashCan} onClick={()=> {
+                onDeleteHandler(id);
+                }}
+                />
+                <StButton onClick={onDoneHandler} style={{ border: "none" }}>
+                  <FontAwesomeIcon className="icon" icon={faCircleCheck} done={done} id={generateIdName()} />
+                </StButton>
+             </> :
+            <></>
+          }
+
          <StButton onClick={onFavHandler} >
             <FontAwesomeIcon
               className="icon"
@@ -132,14 +136,7 @@ const Content = () => {
             {like}
           </StButton>
 
-          <button onClick={onDoneHandler} style={{ border: "none" }} >
-            <FontAwesomeIcon
-              className="icon"
-              icon={faCircleCheck}
-              done={done}
-              id={generateIdName()}
-            />
-          </button>
+
         </div>
       </StHeader>
 
